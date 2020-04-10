@@ -1,14 +1,14 @@
 <?php
 /**
- * This file does contain only the class ListBuilder.
+ * This file does contain only the class HTMLBuilder.
  */
 
 /**
- * Class ListBuilder
+ * Class HTMLBuilder
  *
  * This class provides methods for creating HTML lists.
  */
-class ListBuilder
+class HTMLBuilder
 {
 
     /**
@@ -31,7 +31,7 @@ class ListBuilder
      */
     static public function json_to_table($json): string
     {
-        return ListBuilder::array_to_html_links(json_decode($json));
+        return HTMLBuilder::array_to_html_links(json_decode($json));
     }
 
     /**
@@ -44,7 +44,7 @@ class ListBuilder
     {
         $links = "";
         foreach ($array as $key => $value) {
-            $links .= ListBuilder::to_link($key, $value);
+            $links .= HTMLBuilder::to_link($key, $value);
         }
         return $links;
     }
