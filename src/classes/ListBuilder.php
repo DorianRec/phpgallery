@@ -2,7 +2,6 @@
 /**
  * This file does contain only the class ListBuilder.
  */
-declare(strict_types=1);
 
 /**
  * Class ListBuilder
@@ -38,7 +37,7 @@ class ListBuilder
     /**
      * Converts an array into a string, containing a HTML list, filled with the data from the array.
      *
-     * @param string $array an array, which will be converted to an HTML table string
+     * @param array $array an array, which will be converted to an HTML table string
      * @return string An HTML table, containing the data from $array
      */
     static public function array_to_table($array): string

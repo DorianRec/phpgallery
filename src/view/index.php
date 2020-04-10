@@ -12,7 +12,9 @@ spl_autoload_register(function ($class) {
 <div class="header">
     <p><?php echo ListBuilder::json_to_table(file_get_contents('../model/header.json')); ?></p>
 </div>
-<footer></footer>
+<div class="footer">
+    <p><?php echo ListBuilder::json_to_table(file_get_contents('../model/footer.json')); ?></p>
+</div>
 </body>
 <?php
 
