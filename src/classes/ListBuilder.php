@@ -31,21 +31,21 @@ class ListBuilder
      */
     static public function json_to_table($json): string
     {
-        return ListBuilder::array_to_table(json_decode($json));
+        return ListBuilder::array_to_html_links(json_decode($json));
     }
 
     /**
-     * Converts an array into a string, containing a HTML list, filled with the data from the array.
+     * Converts an array into a string, containing HTML links.
      *
-     * @param array $array an array, which will be converted to an HTML table string
-     * @return string An HTML table, containing the data from $array
+     * @param array $array an array containing titles, mapping on URLs
+     * @return string Contain an HTML link for each mapping
      */
-    static public function array_to_table($array): string
+    static public function array_to_html_links($array): string
     {
-        $table = "";
+        $links = "";
         foreach ($array as $key => $value) {
-            $table .= "<li>" . ListBuilder::to_link($key, $value) . "</li>";
+            $links .= ListBuilder::to_link($key, $value);
         }
-        return "<ul>" . $table . "</ul>";
+        return $links;
     }
 }

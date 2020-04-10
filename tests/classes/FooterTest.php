@@ -13,7 +13,7 @@ final class FooterTest extends TestCase
   \"website3\": \"URL3\"
 }";
         $this->assertEquals(
-            '<ul><li><a href="URL1">website1</a></li><li><a href="URL2">website2</a></li><li><a href="URL3">website3</a></li></ul>',
+            '<a href="URL1">website1</a><a href="URL2">website2</a><a href="URL3">website3</a>',
             ListBuilder::json_to_table($json)
         );
     }

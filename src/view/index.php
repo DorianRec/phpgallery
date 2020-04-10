@@ -10,14 +10,13 @@ spl_autoload_register(function ($class) {
 </head>
 <body>
 <div class="header">
-    <p><?php echo ListBuilder::json_to_table(file_get_contents('../model/header.json')); ?></p>
+    <a class="active"
+       href="#">PHPGallery</a><?php echo ListBuilder::json_to_table(file_get_contents('../model/header.json')); ?>
 </div>
-<div class="footer">
-    <p><?php echo ListBuilder::json_to_table(file_get_contents('../model/footer.json')); ?></p>
+<div class="footer"><?php echo ListBuilder::json_to_table(file_get_contents('../model/footer.json')); ?></a>
 </div>
 </body>
 <?php
-
 echo "hello world!";
 ?>
 </html>
