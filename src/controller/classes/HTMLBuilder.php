@@ -24,9 +24,9 @@ class HTMLBuilder
     }
 
     /**
-     * Converts a JSON string into a string, containing an HTML list, filled with this data.
+     * Converts a JSON string into a string, containing HTML links.
      *
-     * @param string $json json string, which should be converted to a HTML table string
+     * @param string $json json string, which should be converted to a HTML links
      * @return string an HTML table, containing the data from $json
      */
     static public function json_to_table($json): string
@@ -48,4 +48,6 @@ class HTMLBuilder
         }
         return $links;
     }
+
+    /* TODO add gallery builder */
 }

@@ -1,0 +1,32 @@
+div.content-wrap {
+    overflow: hidden; /* make content-wrap contain every picture, instead they overflow */
+    //background-color: lightblue;
+    height: fit-content;
+}
+
+div.picture {
+    position: relative;
+    overflow: hidden; /* make images not overflow the div.picture */
+    float: left; /* order images to the left */
+    background-color: lemonchiffon;
+    margin: 5px 5px 5px 5px;
+    width: calc(33.33% - 10px);
+
+    /* Make height fit the width */
+    display: inline-block; /* TODO Dont know whether this is needed*/
+    height: 0;
+    padding-bottom: calc(33.33% - 10px);
+}
+
+img {
+    width: 100%; /* make image completely fit in the div */
+    height: auto; /* make image do not stretch. */
+
+    /* Make pictures placed centered in parent (which needs to be position: relative;) */
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
