@@ -56,7 +56,7 @@ class URLParser
     static public function findLastSetup(string $url, ?stdClass $tree = null): stdClass
     {
         $output = null;
-        $error = json_decode(json_encode(
+        $error = Json::array_to_stdclass(
             [
                 'controller' => 'Controller',
                 'action' => 'error',
@@ -64,7 +64,7 @@ class URLParser
                 'subtree' => [],
                 'path' => [$url]
             ]
-        ));
+        );
 
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));

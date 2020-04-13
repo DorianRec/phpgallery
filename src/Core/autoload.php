@@ -11,6 +11,8 @@ spl_autoload_register(function ($class) {
         include __DIR__ . '/../View/' . $class . '.php';
     else if (file_exists(__DIR__ . '/../Routing/' . $class . '.php'))
         include __DIR__ . '/../Routing/' . $class . '.php';
+    else if (file_exists(__DIR__ . '/../Utility/' . $class . '.php'))
+        include __DIR__ . '/../Utility/' . $class . '.php';
     else if (file_exists(__DIR__ . '/../Core/' . $class . '.php'))
         include __DIR__ . '/../Core/' . $class . '.php';
 });

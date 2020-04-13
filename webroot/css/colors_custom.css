@@ -1,0 +1,51 @@
+body {
+/ / background-image: linear-gradient(141 deg, #9fb8ad 0 %, #1fc8db 51 %, #2cb5e8 75 %);
+    background-image: linear-gradient(90deg, #b8caf4 0%, #ffffff 100%);
+    font-family: Blackadder ITC;
+    color: #1F3C81;
+}
+
+.header {
+    background-color: #b8caf4;
+}
+
+.header a {
+    color: #1F3C81;
+
+    -moz-transition: background-color .3s ease-in;
+    -webkit-transition: background-color .3s ease-in;
+    -o-transition: background-color .3s ease-in;
+    transition: background-color .3s ease-in;
+}
+
+.header a:hover {
+    background-color: #dae6f4;
+    color: #1F3C81;
+    -moz-transition: background-color 0.01s;
+    -webkit-transition: background-color 0.01s;
+    -o-transition: background-color 0.01s;
+    transition: background-color 0.01s;
+}
+
+.header a.active {
+    background-color: #dae6f4;
+    color: #1F3C81;
+}
+
+.footer {
+    background-color: #b8caf4;
+}
+
+.footer a {
+    color: black;
+}
+
+.footer a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.footer a.active {
+    background-color: dodgerblue;
+    color: white;
+}

@@ -15,6 +15,7 @@
       "src/Core/",
       "src/Model/Entity/",
       "src/Routing/",
+      "src/Utility/",
       "src/View/"
     ]
   },

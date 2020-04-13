@@ -64,27 +64,6 @@ final class URLParserTest extends TestCase
                 "subtree" => array()
             ))
     ];
-    static public $special3 = "{
-  \"title\": \"root\",
-  \"content\": 0,
-  \"subtree\": {
-    \"example.de\": {
-        \"title\": \"example-page\",
-        \"content\": 42,
-        \"subtree\": {}
-    },
-    \"localhost\": {
-        \"title\": \"Home is where the heart is.\",
-        \"content\": 666,
-        \"subtree\": {}
-    },
-    \"127.0.0.1\": {
-        \"title\": \"Home is where the heart is.\",
-        \"content\": 666,
-        \"subtree\": {}
-    }
-  }
-}";
 
     /**
      * Test for {@link URLParser::treeSearch()}.
@@ -290,15 +269,15 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             42,
-            URLParser::treeSearch('example.de', json_decode(json_encode(self::$special2)))->content
+            URLParser::treeSearch('example.de', Json::array_to_stdclass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            URLParser::treeSearch('localhost', json_decode(json_encode(self::$special2)))->content
+            URLParser::treeSearch('localhost', Json::array_to_stdclass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            URLParser::treeSearch('127.0.0.1', json_decode(json_encode(self::$special2)))->content
+            URLParser::treeSearch('127.0.0.1', Json::array_to_stdclass(self::$special2))->content
         );
     }
 
