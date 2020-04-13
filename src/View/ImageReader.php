@@ -11,7 +11,14 @@ class ImageReader
         return array_slice($files, 2);
     }
 
-    static public function return_image_HTML_string($array): string
+    /**
+     * The reads all images from {@link ImageReader::IMAGE_FOLDER} and
+     * returns out an HTML string, containing them.
+     *
+     * @param array $array containing the sources of each image in {@link ImageReader::IMAGE_FOLDER}
+     * @return string HTML-string, containing each image.
+     */
+    static public function return_image_HTML_string(array $array): string
     {
         $output = "";
         foreach ($array as $key => $src) {
@@ -21,4 +28,6 @@ class ImageReader
         }
         return $output;
     }
+
+    /* TODO add gallery builder, reading from json */
 }

@@ -48,6 +48,4 @@ class HTMLBuilder
         }
         return $links;
     }
-
-    /* TODO add gallery builder */
 }
