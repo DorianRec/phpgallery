@@ -15,7 +15,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
         <?php echo HTMLBuilder::json_to_table(file_get_contents(__DIR__ . '/../src/Database/tables/links.json')); ?>
     </div>
     <div class="content-wrap">
-        <?php echo ImageReader::return_image_HTML_string(ImageReader::read_images('')) ?>
+        <?php echo ImageReader::read_from_json_file() ?>
     </div>
     <div class="footer"><?php echo HTMLBuilder::json_to_table(file_get_contents(__DIR__ . '/../src/Database/tables/footer.json')); ?></div>
 </div>

@@ -17,8 +17,9 @@ class ImageReader
      *
      * @param array $array containing the sources of each image in {@link ImageReader::IMAGE_FOLDER}
      * @return string HTML-string, containing each image.
+     * @deprecated
      */
-    static public function return_image_HTML_string(array $array): string
+    static public function return_image_html_string(array $array): string
     {
         $output = "";
         foreach ($array as $key => $src) {
@@ -29,5 +30,23 @@ class ImageReader
         return $output;
     }
 
-    /* TODO add gallery builder, reading from json */
+    static public function read_from_json_file(): string
+    {
+        return self::read_from_json(json_decode(file_get_contents(__DIR__ . '/../Database/tables/images.json')), '');
+    }
+
+    static public function read_from_json(stdClass $json, string $relative_path): string
+    {
+        $output = "";
+        foreach ($json as $key => $src) {
+            if ($src->type == 'dir') {
+                $output .= self::read_from_json($src->content, $relative_path . $key . '/');
+            } else {
+                $output .= "<div class=\"picture\">
+<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
+</div>";
+            }
+        }
+        return $output;
+    }
 }
