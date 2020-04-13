@@ -11,7 +11,11 @@
   ],
   "autoload": {
     "classmap": [
-      "src/classes/"
+      "src/Controller/",
+      "src/Core/",
+      "src/Model/Entity/",
+      "src/Routing/",
+      "src/View/"
     ]
   },
   "require-dev": {

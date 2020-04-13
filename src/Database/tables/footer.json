@@ -1,0 +1,20 @@
+{
+  "website1": {
+    "title": "",
+    "url": "URL1",
+    "subpages": {
+    }
+  },
+  "website2": {
+    "title": "",
+    "url": "URL2",
+    "subpages": {
+    }
+  },
+  "website3": {
+    "title": "",
+    "url": "URL3",
+    "subpages": {
+    }
+  }
+}

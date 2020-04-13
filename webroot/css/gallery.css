@@ -6,8 +6,8 @@ div.content-wrap {
 
 div.picture {
     position: relative;
-    overflow: hidden; /* make images not overflow the div.picture */
-    float: left; /* order images to the left */
+    overflow: hidden; /* make img not overflow the div.picture */
+    float: left; /* order img to the left */
     background-color: lemonchiffon;
     margin: 5px 5px 5px 5px;
     width: calc(33.33% - 10px);

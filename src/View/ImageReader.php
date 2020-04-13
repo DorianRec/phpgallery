@@ -2,7 +2,7 @@
 
 class ImageReader
 {
-    public const IMAGE_FOLDER = '../model/images/';
+    public const IMAGE_FOLDER = __DIR__ . '/../../webroot/img/';
 
     /* TODO Forbid path going back */
     static public function read_images($dir): array

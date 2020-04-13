@@ -1,0 +1,6 @@
+#https://stackoverflow.com/questions/18406156/redirect-all-to-index-php-using-htaccess
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /index.php [L,QSA]

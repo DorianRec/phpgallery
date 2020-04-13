@@ -1,0 +1,28 @@
+{
+  "Home": {
+    "title": "Home",
+    "url": "http://127.0.0.1/page/",
+    "subpages": {}
+  },
+  "Gallery": {
+    "title": "Gallery",
+    "url": "http://127.0.0.1/gallery/",
+    "subpages": {}
+  },
+  "blog": {
+    "title": "Blog",
+    "url": "",
+    "subpages": {
+      "page1": {
+        "title": "",
+        "url": "",
+        "subpages": {}
+      },
+      "page2": {
+        "title": "",
+        "url": "",
+        "subpages": {}
+      }
+    }
+  }
+}
