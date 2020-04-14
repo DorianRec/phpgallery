@@ -4,7 +4,8 @@ class MainController
 {
     static public function view(array $pathFragments)
     {
-        $CONTROLLER['active'] = 'home';
+        $CONTROLLER['controller'] = 'Main';
+        $CONTROLLER['action'] = 'view';
         require_once __DIR__ . '/../../templates/page.php';
     }
 }

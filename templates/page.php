@@ -10,7 +10,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 <body>
 <div class="page-container">
     <div class="header">
-        <?php echo HtmlHelper::header($CONTROLLER['active']); ?>
+        <?php echo HtmlHelper::header(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?>
     </div>
     <div class="content-wrap">
         <div><p><? echo file_get_contents(__DIR__ . '/../webroot/txt/text.txt') ?></p></div>
@@ -40,7 +40,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
         <div><p><? echo "(n-1)th line" ?></p></div>
         <div><p><? echo "(n)tn line" ?></p></div>
     </div>
-    <div class="footer"><?php echo HtmlHelper::footer($CONTROLLER['active']); ?></div>
+    <div class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
 </div>
 </body>
 </html>

@@ -11,12 +11,13 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 <body>
 <div class="page-container">
     <div class="header">
-        <?php echo HtmlHelper::header($CONTROLLER['active']); ?>
+        <?php echo HtmlHelper::header(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?>
     </div>
     <div class="content-wrap">
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
-    <div class="footer"><?php echo HtmlHelper::footer($CONTROLLER['active']); ?></div>
+    <div
+        class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
 </div>
 </body>
 </html>

@@ -4,7 +4,8 @@ class GalleryController extends Controller
 {
     static public function view(array $pathFragments)
     {
-        $CONTROLLER['active'] = 'gallery';
+        $CONTROLLER['controller'] = 'Gallery';
+        $CONTROLLER['action'] = 'view';
         $CONTROLLER['tags'] = [];
         if ($pathFragments[0] == 'tags') {
             // TODO add all tags

@@ -20,11 +20,11 @@ class UrlHelper
      *  'args' => 'foo/bar'
      * ]
      * @param bool $full tells, whether protocol and domain should be appended to url.
-     * @param stdClass|null $json the database containing the controler,action/url mapping
+     * @param stdClass|null $json the database containing the controller, action/url mapping
      * @return string the URL, like
      * '/gallery/view/foo/bar/'
      */
-    static public function build(array $struct, bool $full, ?stdClass $json): string
+    static public function build(array $struct, bool $full = false, stdClass $json = null): string
     {
         $protocol_and_domain = '';
         if ($full)

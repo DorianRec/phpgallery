@@ -1,28 +1,12 @@
 {
-  "home": {
-    "title": "Home",
-    "url": "http://127.0.0.1/page/",
+  "Home": {
+    "controller": "Main",
+    "action": "view",
     "subpages": {}
   },
-  "gallery": {
-    "title": "Gallery",
-    "url": "http://127.0.0.1/gallery/",
+  "Gallery": {
+    "controller": "Gallery",
+    "action": "view",
     "subpages": {}
-  },
-  "blog": {
-    "title": "Blog",
-    "url": "",
-    "subpages": {
-      "page1": {
-        "title": "",
-        "url": "",
-        "subpages": {}
-      },
-      "page2": {
-        "title": "",
-        "url": "",
-        "subpages": {}
-      }
-    }
   }
 }

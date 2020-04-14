@@ -1,20 +1,22 @@
 {
-  "website1": {
-    "title": "",
-    "url": "URL1",
-    "subpages": {
-    }
+  "Home": {
+    "controller": "Main",
+    "action": "view",
+    "subpages": {}
   },
-  "website2": {
-    "title": "",
-    "url": "URL2",
-    "subpages": {
-    }
+  "Gallery": {
+    "controller": "Gallery",
+    "action": "view",
+    "subpages": {}
   },
-  "gallery": {
-    "title": "",
-    "url": "URL3",
-    "subpages": {
-    }
+  "page3": {
+    "controller": "File",
+    "action": "txt",
+    "subpages": {}
+  },
+  "page4": {
+    "controller": "File",
+    "action": "txt",
+    "subpages": {}
   }
 }
