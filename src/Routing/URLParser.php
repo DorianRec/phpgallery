@@ -56,20 +56,26 @@ class URLParser
     static public function findLastSetup(string $url, ?stdClass $tree = null): stdClass
     {
         $output = null;
-        $error = Json::array_to_stdclass(
-            [
-                'controller' => 'Controller',
-                'action' => 'error',
-                'template' => 'error',
-                'subtree' => [],
-                'path' => [$url]
-            ]
-        );
 
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
         $content = parse_url($url);
         $parts = explode('/', URLParser::fixPath($content['path']));
+
+        $error = Json::array_to_stdclass(
+            [
+                'controller' => 'Controller',
+                'action' => 'error',
+                'subtree' => []
+            ]
+        );
+        $error->path = array_slice($parts, 1, count($parts) - 2);
+
+        // In case, no path except '/' is given
+        if (self::terminationCondition($tree)) {
+            $output = $tree;
+            $output->path = array_slice($parts, 1, count($parts) - 2);
+        }
 
         // we ignore the first and the last string, since they are empty
         for ($i = 1; $i < count($parts) - 1; $i++) {
@@ -80,7 +86,7 @@ class URLParser
                     $tree = $page;
                     if (self::terminationCondition($tree)) {
                         $output = $tree;
-                        $output->path = (object)array_slice($parts, $i + 1, count($parts) - 3);
+                        $output->path = array_slice($parts, $i + 1, count($parts) - 3);
                     }
                     break;
                 }
@@ -103,7 +109,6 @@ class URLParser
     static public function terminationCondition(stdClass $node): bool
     {
         return $node->controller != '' &&
-            $node->action != '' &&
-            $node->template != '';
+            $node->action != '';
     }
 }

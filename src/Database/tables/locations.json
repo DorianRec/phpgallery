@@ -1,47 +1,38 @@
 {
   "controller": "Controller",
   "action": "view",
-  "template": "page",
   "subtree": {
     "gallery": {
       "controller": "GalleryController",
       "action": "view",
-      "template": "gallery",
       "subtree": {}
     },
     "home": {
       "controller": "Controller",
       "action": "view",
-      "template": "page",
       "subtree": {}
     },
     "webroot": {
       "controller": "FileController",
       "action": "view",
-      "template": "null",
       "subtree": {}
     },
     "page": {
-      "title": "homes123",
       "controller": "Controller",
       "action": "view",
-      "template": "page",
       "subtree": {}
     },
     "overpage123": {
       "controller": "Controller",
       "action": "view",
-      "template": "page",
       "subtree": {
         "footer": {
           "controller": "",
           "action": "",
-          "template": "",
           "subtree": {
             "lower": {
               "controller": "",
               "action": "",
-              "template": "",
               "subtree": {}
             }
           }
@@ -49,7 +40,6 @@
         "sunderpage": {
           "controller": "",
           "action": "",
-          "template": "",
           "subtree": {}
         }
       }
