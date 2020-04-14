@@ -2,7 +2,7 @@
 
 class GalleryController extends Controller
 {
-    static public function view(array $pathFragments)
+    static public function view(object $pathFragments)
     {
         $CONTROLLER['active'] = 'gallery';
         $CONTROLLER['tags'] = [];

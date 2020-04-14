@@ -80,7 +80,7 @@ class URLParser
                     $tree = $page;
                     if (self::terminationCondition($tree)) {
                         $output = $tree;
-                        $output->path = array_slice($parts, $i + 1, count($parts) - 3);
+                        $output->path = (object)array_slice($parts, $i + 1, count($parts) - 3);
                     }
                     break;
                 }

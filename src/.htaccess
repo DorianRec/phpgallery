@@ -3,4 +3,5 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ /index.php [L,QSA]
+RewriteRule ^.*$ /index.php [L,QSA] # affects the current directory only
+RewriteRule ^.*/(.*)$ /index.php [L,QSA] # affects all subfolders
