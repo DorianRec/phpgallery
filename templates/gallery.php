@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 require_once __DIR__ . '/../src/Core/autoload.php';
 ?>
 <html lang="de">
@@ -17,7 +17,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
     <div
-        class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
+            class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
 </div>
 </body>
 </html>
