@@ -77,7 +77,7 @@ final class RouterTest extends TestCase
      *
      * @test
      */
-    public function parseHTTPSTest1(): void
+    public function parseHttpsTest1(): void
     {
         $this->assertEquals(
             0,
@@ -351,7 +351,55 @@ final class RouterTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * Tests for {@link Router::fixPath()}.
+     * In this cases, '.' will be removed
+     *
+     * @test
+     */
+    public function fixPathDotTest1()
+    {
+        $this->assertEquals(
+            '/a/b/',
+            Router::fixPath('/a/./b/')
+        );
+        $this->assertEquals(
+            '/',
+            Router::fixPath('/.')
+        );
+    }
+
+    /**
+     * Tests for {@link Router::fixPath()}.
+     * In this cases, '..' will be removed
+     *
+     * @test
+     */
+    public function fixPathDotsTest1()
+    {
+        $this->assertEquals(
+            '/a/b/d/e/',
+            Router::fixPath('/a/b/c/../d/e/')
+        );
+        $this->assertEquals(
+            '/d/e/',
+            Router::fixPath('/a/b/../../d/e/')
+        );
+        $this->assertEquals(
+            '/a/b/',
+            Router::fixPath('/../a/b/')
+        );
+        $this->assertEquals(
+            '/a/b/e/',
+            Router::fixPath('/a/b/c/d/../../e/')
+        );
+    }
+
+    /**
+     * Tests for {@link Router::search_url()}.
+     *
+     * @test
+     */
     public function searchUrlTest1(): void
     {
         $this->assertEquals(

@@ -9,7 +9,7 @@ class Router
      * The stdClass contain the fields 'controller', 'action', 'template', 'subtree', 'path'.
      * @deprecated
      */
-    static public function treeSearch(string $url, ?stdClass $tree = null)
+    static public function treeSearch(string $url, stdClass $tree = null)
     {
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
@@ -37,7 +37,7 @@ class Router
      * @param string $path The path given by $_SERVER['path']
      * @return string The fixed path.
      */
-    static public function fixPath($path): string
+    static public function fixPath(string $path): string
     {
         // replace all backslashes to a normal one
         $path = str_replace('\\', '/', $path);
@@ -53,7 +53,7 @@ class Router
         return $path;
     }
 
-    static public function findLastSetup(string $url, ?stdClass $tree = null): stdClass
+    static public function findLastSetup(string $url, stdClass $tree = null): stdClass
     {
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
@@ -103,8 +103,6 @@ class Router
         return $error;
     }
 
-    // TODO allow '.' and '..'
-
     static public function terminationCondition(stdClass $node): bool
     {
         return $node->controller != '' &&
@@ -117,7 +115,7 @@ class Router
      * @param stdClass|null $tree
      * @return bool|string
      */
-    static public function search_url(string $controller, string $action, ?stdClass $tree = null)
+    static public function search_url(string $controller, string $action, stdClass $tree = null)
     {
         if ($tree == null) {
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
