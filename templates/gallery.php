@@ -11,13 +11,12 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 <body>
 <div class="page-container">
     <div class="header">
-        <a class="active" href="#">Active</a>
-        <?php echo HTMLBuilder::json_to_table(file_get_contents(__DIR__ . '/../src/Database/tables/links.json')); ?>
+        <?php echo HTMLBuilder::header($CONTROLLER['active']); ?>
     </div>
     <div class="content-wrap">
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
-    <div class="footer"><?php echo HTMLBuilder::json_to_table(file_get_contents(__DIR__ . '/../src/Database/tables/footer.json')); ?></div>
+    <div class="footer"><?php echo HTMLBuilder::footer($CONTROLLER['active']); ?></div>
 </div>
 </body>
 </html>

@@ -10,41 +10,44 @@
  */
 class HTMLBuilder
 {
-
     /**
-     * Creates a string, containing a HTML link tag.
+     * Gives a string containing HTML links for the header, with the active one highlighted optionally.
      *
-     * @param string $text txt of the link
-     * @param string $href location of the link
-     * @return string containing an HTML link tag, having $txt as txt and $href as location.
-     */
-    static public function to_link(string $text, string $href): string
-    {
-        return '<a href="' . $href . '">' . $text . '</a>';
-    }
-
-    /**
-     * Converts a JSON string into a string, containing HTML links.
-     *
-     * @param string $json tables string, which should be converted to a HTML links
+     * @param string $active tells, which link is currently active. '' on default.
      * @return string an HTML table, containing the data from $tables
      */
-    static public function json_to_table(string $json): string
+    static public function header(string $active = ''): string
     {
-        return HTMLBuilder::array_to_html_links(json_decode($json));
+        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../Database/tables/links.json'), $active);
     }
 
     /**
-     * Converts an array into a string, containing HTML links.
+     * Gives a string containing HTML links for the footer, with the active one highlighted optionally.
      *
-     * @param stdClass $array containing titles, mapping on URLs
-     * @return string Contain an HTML link for each mapping
+     * @param string $active tells, which link is currently active. '' on default.
+     * @return string an HTML table, containing the data from $tables
      */
-    static public function array_to_html_links(stdClass $array): string
+    static public function footer(string $active = ''): string
     {
+        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../Database/tables/footer.json'), $active);
+    }
+
+    /**
+     * Converts a JSON string into a string containing HTML links, with the active one highlighted optionally.
+     *
+     * @param string $json tables string, which should be converted to a HTML links
+     * @param string $active tells, which link is currently active. '' on default.
+     * @return string an HTML table, containing the data from $tables
+     */
+    static public function json_to_html_link_list(string $json, string $active = ''): string
+    {
+        $stdClass = json_decode($json);
         $links = "";
-        foreach ($array as $key => $value) {
-            $links .= HTMLBuilder::to_link($key, $value->url);
+        foreach ($stdClass as $key => $value) {
+            if ($key == $active)
+                $links .= "<a class=\"active\" href=\"{$value->url}\">{$key}</a>";
+            else
+                $links .= "<a href=\"{$value->url}\">{$key}</a>";
         }
         return $links;
     }

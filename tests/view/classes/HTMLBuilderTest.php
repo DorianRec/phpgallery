@@ -29,7 +29,7 @@ final class HTMLBuilderTest extends TestCase
 }";
         $this->assertEquals(
             '<a href="URL1">website1</a><a href="URL2">website2</a><a href="URL3">website3</a>',
-            HTMLBuilder::json_to_table($json)
+            HTMLBuilder::json_to_html_link_list($json)
         );
     }
 }
