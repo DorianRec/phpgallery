@@ -30,21 +30,36 @@ class ImageReader
         return $output;
     }
 
-    static public function read_from_json_file(): string
+    static public function read_from_json_file(array $tags_array): string
     {
-        return self::read_from_json(json_decode(file_get_contents(__DIR__ . '/../Database/tables/images.json')), '');
+        return self::read_from_json(
+            json_decode(file_get_contents(__DIR__ . '/../Database/tables/images.json')),
+            '',
+            $tags_array);
     }
 
-    static public function read_from_json(stdClass $json, string $relative_path): string
+    static public function read_from_json(stdClass $json, string $relative_path, array $tags_array = []): string
     {
         $output = "";
         foreach ($json as $key => $src) {
             if ($src->type == 'dir') {
-                $output .= self::read_from_json($src->content, $relative_path . $key . '/');
+                $output .= self::read_from_json($src->content,
+                    $relative_path . $key . '/',
+                    $tags_array);
             } else {
-                $output .= "<div class=\"picture\">
+                if (count($tags_array) > 0) {
+                    foreach ($tags_array as $tag) {
+                        if (in_array($tag, $src->tags)) {
+                            $output .= "<div class=\"picture\">
 <img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
 </div>";
+                            break;
+                        }
+                    }
+                } else $output .= "<div class=\"picture\">
+<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
+</div>";
+
             }
         }
         return $output;

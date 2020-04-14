@@ -3,8 +3,8 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 ?>
 <html lang="de">
 <head>
-    <link rel="stylesheet" href="../webroot/css/styles.css">
-    <link rel="stylesheet" href="../webroot/css/colors_custom.css">
+    <link rel="stylesheet" href="<? echo URLBuilder::get_protocol_and_domain() . '/webroot/css/styles.css' ?>">
+    <link rel="stylesheet" href="<? echo URLBuilder::get_protocol_and_domain() . '/webroot/css/colors_custom.css' ?>">
     <title>PHPGallery</title>
 </head>
 <body>

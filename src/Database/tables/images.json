@@ -3,32 +3,59 @@
     "type": "dir",
     "content": {
       "1*kAdu3R5XvanDy1ZkERz8Iw.jpeg": {
-        "type": "jpeg"
+        "type": "jpeg",
+        "tags": [
+          "doge"
+        ]
       }
     }
   },
   "cq5dam.web.white.1200.1500.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "prada"
+    ]
   },
   "louis-vuitton--HHL87ELSR85M_PM1_Worn view.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "louis-vuitton"
+    ]
   },
   "louis-vuitton--HHL87ELSR85M_PM2_Front view.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "louis-vuitton"
+    ]
   },
   "louis-vuitton--M55565_PM2_Front view.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "louis-vuitton"
+    ]
   },
   "louis-vuitton--M55568_PM2_Front view.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "louis-vuitton"
+    ]
   },
   "louis-vuitton--N91565_PM2_Front view.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "louis-vuitton"
+    ]
   },
   "QU122D091-K11@13.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "quick-silver"
+    ]
   },
   "STORY-FEATURE.jpg": {
-    "type": "jpg"
+    "type": "jpg",
+    "tags": [
+      "hilfiger"
+    ]
   }
 }

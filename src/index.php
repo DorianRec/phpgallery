@@ -7,7 +7,4 @@ require_once __DIR__ . '/Core/autoload.php';
         URLParser::treeSearch(
             (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
         )));*/
-echo App::load(
-    URLParser::findLastSetup(
-        (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
-    ));
+App::load(URLParser::findLastSetup(URLBuilder::get_url()));
