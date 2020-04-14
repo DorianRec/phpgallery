@@ -2,12 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-final class HTMLBuilderTest extends TestCase
+final class HtmlHelperTest extends TestCase
 {
-    /** @test */
-    public function simpleBuildTest(): void
-    {
-        $json = "{
+    static public $json = "{
   \"website1\": {
     \"title\": \"\",
     \"url\": \"URL1\",
@@ -27,9 +24,13 @@ final class HTMLBuilderTest extends TestCase
     }
   }
 }";
+
+    /** @test */
+    public function simpleBuildTest(): void
+    {
         $this->assertEquals(
             '<a href="URL1">website1</a><a href="URL2">website2</a><a href="URL3">website3</a>',
-            HTMLBuilder::json_to_html_link_list($json)
+            HtmlHelper::json_to_html_link_list(self::$json)
         );
     }
 }

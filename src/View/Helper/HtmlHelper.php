@@ -1,14 +1,14 @@
 <?php
 /**
- * This file does contain only the class HTMLBuilder.
+ * This file does contain only the class HtmlHelper.
  */
 
 /**
- * Class HTMLBuilder
+ * Class HtmlHelper
  *
  * This class provides methods for creating HTML lists.
  */
-class HTMLBuilder
+class HtmlHelper
 {
     /**
      * Gives a string containing HTML links for the header, with the active one highlighted optionally.
@@ -18,7 +18,7 @@ class HTMLBuilder
      */
     static public function header(string $active = ''): string
     {
-        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../Database/tables/links.json'), $active);
+        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../../Database/tables/links.json'), $active);
     }
 
     /**
@@ -29,7 +29,7 @@ class HTMLBuilder
      */
     static public function footer(string $active = ''): string
     {
-        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../Database/tables/footer.json'), $active);
+        return self::json_to_html_link_list(file_get_contents(__DIR__ . '/../../Database/tables/footer.json'), $active);
     }
 
     /**

@@ -2,40 +2,32 @@
 
 use PHPUnit\Framework\TestCase;
 
-final class URLParserTest extends TestCase
+final class RouterTest extends TestCase
 {
-
     static public $json = "{
-  \"title\": \"root\",
   \"content\": 0,
   \"subtree\": {
     \"home\": {
-      \"title\": \"home123\",
       \"content\": 1,
       \"subtree\": {}
     },
     \"page\": {
-      \"title\": \"homes123\",
       \"content\": 2,
       \"subtree\": {}
     },
     \"overpage123\": {
-      \"title\": \"overpage123\",
       \"content\": 3,
       \"subtree\": {
         \"footer\": {
-          \"title\": \"FOOTER\",
           \"content\": 4,
           \"subtree\": {
             \"lower\": {
-              \"title\": \"looooower\",
               \"content\": 5,
               \"subtree\": {}
             }
           }
         },
         \"sunderpage\": {
-          \"title\": \"sunderpage\",
           \"content\": 6,
           \"subtree\": {}
         }
@@ -66,7 +58,7 @@ final class URLParserTest extends TestCase
     ];
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * Here we test, whether we get the home page.
      *
      * @test
@@ -75,12 +67,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             0,
-            URLParser::treeSearch('http://example.de/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * Here we test, whether https is accepted.
      *
      * @test
@@ -89,12 +81,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             0,
-            URLParser::treeSearch('https://example.de/', json_decode(self::$json))->content
+            Router::treeSearch('https://example.de/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * In this test, the function should answer with the error-page.
      *
      * @test
@@ -103,12 +95,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             false,
-            URLParser::treeSearch('http://example.de/f7fiyfifuiy/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/f7fiyfifuiy/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * Here we test the function with simple paths.
      *
      * @test
@@ -117,20 +109,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             1,
-            URLParser::treeSearch('http://example.de/home/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/home/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             2,
-            URLParser::treeSearch('http://example.de/page/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/page/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             3,
-            URLParser::treeSearch('http://example.de/overpage123/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * Here we test whether the function is able to dive into deep path trees.
      *
      * @test
@@ -139,20 +131,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             4,
-            URLParser::treeSearch('http://example.de/overpage123/footer/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             6,
-            URLParser::treeSearch('http://example.de/overpage123/sunderpage/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/sunderpage/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * In this test, we test whether the function differs between upper and lower caps.
      *
      * @test
@@ -161,20 +153,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/OVERPAGE123/FOOTER/LOWER/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/OVERPAGE123/FOOTER/LOWER/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/OvErPaGe123/FoOtEr/LoWeR/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/OvErPaGe123/FoOtEr/LoWeR/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * In this test, the last slash is missing.
      *
      * @test
@@ -183,20 +175,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             0,
-            URLParser::treeSearch('http://example.de', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de', json_decode(self::$json))->content
         );
         $this->assertEquals(
             false,
-            URLParser::treeSearch('http://example.de/f7fiyfifuiy', json_decode(self::$json))
+            Router::treeSearch('http://example.de/f7fiyfifuiy', json_decode(self::$json))
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123/footer/lower', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer/lower', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Test for {@link URLParser::treeSearch()}.
+     * Test for {@link Router::treeSearch()}.
      * This paths contain different mutations.
      *
      * @test
@@ -206,43 +198,43 @@ final class URLParserTest extends TestCase
         // used two slashes
         $this->assertEquals(
             0,
-            URLParser::treeSearch('http://example.de//', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de//', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de//overpage123/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de//overpage123/footer/lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123//footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123//footer/lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123/footer//lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer//lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123/footer/lower//', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123/footer/lower//', json_decode(self::$json))->content
         );
         // used backslash instead of normals slashs
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123\\footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123\\footer/lower/', json_decode(self::$json))->content
         );
         // multiple slashes
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123///////footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123///////footer/lower/', json_decode(self::$json))->content
         );
         // mixed slashes and backslashes
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Tests for {@link URLParser::treeSearch()}.
+     * Tests for {@link Router::treeSearch()}.
      * Backslashes followed directly after the domain is interpreted as part of the url instead of the beginning of the path.
      *
      * @test
@@ -251,16 +243,16 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de\\/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de\\/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
         );
         $this->assertEquals(
             5,
-            URLParser::treeSearch('http://example.de\\overpage123//\\overpage123\\/footer/lower/', json_decode(self::$json))->content
+            Router::treeSearch('http://example.de\\overpage123//\\overpage123\\/footer/lower/', json_decode(self::$json))->content
         );
     }
 
     /**
-     * Tests for {@link URLParser::treeSearch()}.
+     * Tests for {@link Router::treeSearch()}.
      * Without http or https, the host is interpreted in parse_url as part of a path.
      *
      * @test
@@ -269,20 +261,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             42,
-            URLParser::treeSearch('example.de', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('example.de', Json::array_to_stdclass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            URLParser::treeSearch('localhost', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('localhost', Json::array_to_stdclass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            URLParser::treeSearch('127.0.0.1', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('127.0.0.1', Json::array_to_stdclass(self::$special2))->content
         );
     }
 
     /**
-     * Tests for {@link URLParser::fixPath()}.
+     * Tests for {@link Router::fixPath()}.
      * Tests, whether the backslashes are replaced by slashes.
      *
      * @test
@@ -291,12 +283,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             '/a/b/c/',
-            URLParser::fixPath('\\a\\b\\c\\')
+            Router::fixPath('\\a\\b\\c\\')
         );
     }
 
     /**
-     * Tests for {@link URLParser::fixPath()}.
+     * Tests for {@link Router::fixPath()}.
      * Tests whether multiple consequtive '///' are shrinked to a single one.
      *
      * @test
@@ -305,12 +297,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             '/a/b/',
-            URLParser::fixPath('/a/////b/')
+            Router::fixPath('/a/////b/')
         );
     }
 
     /**
-     * Tests for {@link URLParser::fixPath()}.
+     * Tests for {@link Router::fixPath()}.
      * Tests, whether slashes are appended at the start and the end of the string, if there are none.
      *
      * @test
@@ -319,20 +311,20 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             '/a/b/',
-            URLParser::fixPath('a/b')
+            Router::fixPath('a/b')
         );
         $this->assertEquals(
             '/a/b/',
-            URLParser::fixPath('/a/b')
+            Router::fixPath('/a/b')
         );
         $this->assertEquals(
             '/a/b/',
-            URLParser::fixPath('a/b/')
+            Router::fixPath('a/b/')
         );
     }
 
     /**
-     * Tests for {@link URLParser::fixPath()}.
+     * Tests for {@link Router::fixPath()}.
      * Tests, whether something weird happens on a base path.
      *
      * @test
@@ -341,12 +333,12 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             '/',
-            URLParser::fixPath('/')
+            Router::fixPath('/')
         );
     }
 
     /**
-     * Tests for {@link URLParser::fixPath()}.
+     * Tests for {@link Router::fixPath()}.
      * Tests, whether multiple backslashes and slashes are shrinked to a single slash.
      *
      * @test
@@ -355,7 +347,24 @@ final class URLParserTest extends TestCase
     {
         $this->assertEquals(
             '/a/b/',
-            URLParser::fixPath('/a///\\\\\\b/')
+            Router::fixPath('/a///\\\\\\b/')
+        );
+    }
+
+    /** @test */
+    public function searchUrlTest1(): void
+    {
+        $this->assertEquals(
+            '',
+            Router::search_url('Main', 'view')
+        );
+        $this->assertEquals(
+            '/gallery',
+            Router::search_url('Gallery', 'view')
+        );
+        $this->assertEquals(
+            '/img',
+            Router::search_url('File', 'img')
         );
     }
 }

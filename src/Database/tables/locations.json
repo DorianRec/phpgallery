@@ -1,48 +1,36 @@
 {
-  "controller": "Controller",
+  "controller": "Main",
   "action": "view",
   "subtree": {
     "gallery": {
-      "controller": "GalleryController",
-      "action": "view",
-      "subtree": {}
-    },
-    "home": {
-      "controller": "Controller",
-      "action": "view",
-      "subtree": {}
-    },
-    "webroot": {
-      "controller": "FileController",
+      "controller": "Gallery",
       "action": "view",
       "subtree": {}
     },
     "page": {
-      "controller": "Controller",
+      "controller": "Main",
       "action": "view",
       "subtree": {}
     },
-    "overpage123": {
-      "controller": "Controller",
-      "action": "view",
-      "subtree": {
-        "footer": {
-          "controller": "",
-          "action": "",
-          "subtree": {
-            "lower": {
-              "controller": "",
-              "action": "",
-              "subtree": {}
-            }
-          }
-        },
-        "sunderpage": {
-          "controller": "",
-          "action": "",
-          "subtree": {}
-        }
-      }
+    "css": {
+      "controller": "File",
+      "action": "css",
+      "subtree": {}
+    },
+    "html": {
+      "controller": "File",
+      "action": "html",
+      "subtree": {}
+    },
+    "img": {
+      "controller": "File",
+      "action": "img",
+      "subtree": {}
+    },
+    "txt": {
+      "controller": "File",
+      "action": "txt",
+      "subtree": {}
     }
   }
 }
