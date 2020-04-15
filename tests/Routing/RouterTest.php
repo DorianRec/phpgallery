@@ -174,7 +174,7 @@ final class RouterTest extends TestCase
     public function parseMissingSlashTest1(): void
     {
         $this->assertEquals(
-            0,
+            "0",
             Router::treeSearch('http://example.de', json_decode(self::$json))->content
         );
         $this->assertEquals(

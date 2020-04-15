@@ -16,8 +16,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
     <div class="content-wrap">
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
-    <div
-            class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
+    <div class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
 </div>
 </body>
 </html>

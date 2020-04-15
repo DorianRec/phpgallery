@@ -2,5 +2,4 @@
 
 require_once __DIR__ . '/Core/autoload.php';
 
-print_r(UrlHelper::get_url());
 App::load(Router::findLastSetup(UrlHelper::get_url()));

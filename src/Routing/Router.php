@@ -14,7 +14,10 @@ class Router
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
         $content = parse_url($url);
-        $parts = explode('/', Router::fixPath($content['path']));
+        if ($content['path'] == null)
+            $parts = [];
+        else
+            $parts = explode('/', Router::fixPath($content['path']));
 
         // we ignore the first and the last string, since they are empty
         for ($i = 1; $i < count($parts) - 1; $i++) {
@@ -49,6 +52,13 @@ class Router
             $path = '/' . $path;
         if (substr($path, -1, 1) != '/')
             $path .= '/';
+
+        $path = str_replace('/./', '/', $path);
+        // evaluates '..'
+        while (preg_match('/\/[^\/]*\/\.\.\//', $path)) {
+            $path = preg_replace('/\/[^\/]*\/\.\.\//', '/', $path);
+        }
+        $path = str_replace('/../', '/', $path);
 
         return $path;
     }

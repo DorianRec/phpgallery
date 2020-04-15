@@ -57,4 +57,27 @@ class HtmlHelper
         }
         return $links;
     }
+
+    /** // TODO PHPDocs
+     * @param string $path
+     * @param array $options has form [
+     *  'pathPrefix' => string
+     *  'fullBase' => boolean
+     * ]
+     * @return string
+     */
+    static public function image(string $path, array $options = []): string
+    {
+        $opts = '';
+        $prefix = '/img/';
+        foreach ($options as $key => $value) {
+            if ($key == 'pathPrefix')
+                $prefix = $options['pathPrefix'];
+            else if ($key == 'fullBase')
+                $prefix = UrlHelper::get_protocol_and_domain() . '/img/';
+            else
+                $opts .= "$key=\"$value\" ";
+        }
+        return "<img src=\"$prefix" . $path . '" ' . $opts . '/>';
+    }
 }

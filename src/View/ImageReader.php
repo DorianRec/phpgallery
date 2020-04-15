@@ -49,16 +49,23 @@ class ImageReader
                 if (count($tags_array) > 0) {
                     foreach ($tags_array as $tag) {
                         if (in_array($tag, $src->tags)) {
-                            $output .= "<div class=\"picture\">
-<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
-</div>";
+                            $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key) . "</div>";
+
+                            // TODO use base64 on other spots.
+                            /*" < div class=\"picture\">
+<img src='data:image/png;base64,image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
+</div>";*/
                             break;
                         }
                     }
-                } else $output .= "<div class=\"picture\">
-<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
-</div>";
+                } else {
+                    $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key) . "</div>";
 
+                    // TODO use base64 on other spots.
+                    /*" < div class=\"picture\">
+<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
+</div>";*/
+                }
             }
         }
         return $output;

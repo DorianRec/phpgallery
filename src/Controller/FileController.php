@@ -2,39 +2,61 @@
 
 class FileController
 {
-    // TODO dont use.
-    /**
-     * This contains code, what is eventually needed later.
-     */
-    private function placeholder()
-    {
-        $path = ''; // TODO remove
-        // deletes /./
-        $path = str_replace('/./', '/', $path);
-        // evaluates '..'
-        while (preg_match('/\/[^\/]*\/\.\.\//', $path)) {
-            $path = preg_replace('/\/[^\/]*\/\.\.\//', '/', $path);
-        }
-        $path = str_replace('/../', '/', $path);
-    }
 
     static public function css(array $pathFragments): void
     {
-        require_once __DIR__ . '/../../webroot/css/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/css/' . implode('/', $pathFragments);
+        if (file_exists($source)) {
+            require_once $source;
+            return;
+        }
     }
 
     static public function html(array $pathFragments): void
     {
-        require_once __DIR__ . '/../../webroot/html/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/html/' . implode('/', $pathFragments);
+        if (file_exists($source)) {
+            require_once $source;
+            return;
+        }
     }
 
-    static public function img(array $pathFragments): void
+    static public function img(array $pathFragments)
     {
-        require_once __DIR__ . '/../../webroot/img/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/img/' . implode('/', $pathFragments);
+        if (file_exists($source)) {
+            $info = getimagesize($source);
+            header('Content-Type:' . $info['mime']);
+            header('Content-Length: ' . filesize($source));
+
+            if ($info['mime'] == 'image/jpeg') {
+                readfile($source);
+                //$image = imagecreatefromjpeg($source);
+                //imagejpeg($image);
+            } elseif ($info['mime'] == 'image/gif') {
+                readfile($source);
+                //$image = imagecreatefromgif($source);
+                //imagegif($image);
+            } elseif ($info['mime'] == 'image/png') {
+                readfile($source);
+                //$image = imagecreatefrompng($source);
+                //imagepng($image);
+            } else {
+                echo 'Filetype not supported yet.';
+                return;
+            }
+
+        } else {
+            echo 'error 404. file not found';
+        }
     }
 
     static public function txt(array $pathFragments): void
     {
-        require_once __DIR__ . '/../../webroot/txt/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/txt/' . implode('/', $pathFragments);
+        if (file_exists($source)) {
+            require_once $source;
+            return;
+        }
     }
 }

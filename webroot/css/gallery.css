@@ -1,7 +1,7 @@
 div.content-wrap {
     overflow: hidden; /* make content-wrap contain every picture, instead they overflow */
-    //background-color: lightblue;
-    height: fit-content;
+    background-color: lightblue;
+    height: fit-content; /* TODO Dont know whether this is needed*/
 }
 
 div.picture {
