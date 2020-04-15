@@ -4,6 +4,7 @@
     "content": {
       "1*kAdu3R5XvanDy1ZkERz8Iw.jpeg": {
         "type": "jpeg",
+        "alt": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
         "tags": [
           "doge"
         ]
@@ -12,48 +13,56 @@
   },
   "cq5dam.web.white.1200.1500.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "prada"
     ]
   },
   "louis-vuitton--HHL87ELSR85M_PM1_Wornview.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "louis-vuitton"
     ]
   },
   "louis-vuitton--HHL87ELSR85M_PM2_Frontview.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "louis-vuitton"
     ]
   },
   "louis-vuitton--M55565_PM2_Frontview.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "louis-vuitton"
     ]
   },
   "louis-vuitton--M55568_PM2_Frontview.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "louis-vuitton"
     ]
   },
   "louis-vuitton--N91565_PM2_Frontview.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "louis-vuitton"
     ]
   },
   "QU122D091-K11@13.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "quick-silver"
     ]
   },
   "STORY-FEATURE.jpg": {
     "type": "jpg",
+    "alt": "",
     "tags": [
       "hilfiger"
     ]

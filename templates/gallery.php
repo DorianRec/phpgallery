@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-require_once __DIR__ . '/../src/Core/autoload.php';
 ?>
 <html lang="de">
 <head><title>PHPGallery</title>
@@ -15,17 +14,15 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 </div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal"
-">
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
 
-<span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
 
-<img class="modal-content" id="img01">
+    <a class="prev" onclick="decrementImageIndex()">&#10094;</a>
+    <a class="next" onclick="incrementImageIndex()">&#10095;</a>
 
-<a class="prev" onclick="decrementImageIndex()">&#10094;</a>
-<a class="next" onclick="incrementImageIndex()">&#10095;</a>
-
-<div id="caption"></div>
+    <div id="caption"></div>
 </div>
 
 <? echo HtmlHelper::js('modal') ?>

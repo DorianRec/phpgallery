@@ -51,29 +51,21 @@ class ImageReader
                     foreach ($tags_array as $tag) {
                         if (in_array($tag, $src->tags)) {
                             $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
+                                    'alt' => $src->alt,
                                     'class' => 'image',
                                     'id' => 'myImg',
                                     'onclick' => 'openModal();setImageIndex(' . self::$i++ . ')'
                                 ]) . "</div>\n";
-
-                            // TODO use base64 on other spots.
-                            /*" < div class=\"picture\">
-<img src='data:image/png;base64,image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
-</div>";*/
                             break;
                         }
                     }
                 } else {
                     $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
+                            'alt' => $src->alt,
                             'class' => 'image',
                             'id' => 'myImg',
                             'onclick' => 'openModal();setImageIndex(' . self::$i++ . ')'
                         ]) . "</div>\n";
-
-                    // TODO use base64 on other spots.
-                    /*" < div class=\"picture\">
-<img src='data:image/png;base64," . base64_encode(file_get_contents(ImageReader::IMAGE_FOLDER . $relative_path . $key)) . "'>
-</div>";*/
                 }
             }
         }

@@ -1,6 +1,4 @@
-<?php declare(strict_types=1);
-require_once __DIR__ . '/../src/Core/autoload.php';
-?>
+<?php declare(strict_types=1); ?>
 <html lang="de">
 <head>
     <? echo HtmlHelper::css(['styles', 'colors']) ?>

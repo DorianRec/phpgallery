@@ -1,7 +1,7 @@
 div.content-wrap {
     overflow: hidden; /* make content-wrap contain every picture, instead they overflow */
     background-color: lightblue;
-    height: fit-content; /* TODO Dont know whether this is needed*/
+    height: fit-content; /* TODO Dont know whether this is needed */
 }
 
 div.picture-wrap {
@@ -13,17 +13,17 @@ div.picture-wrap {
     width: calc(33.33% - 10px);
 
     /* Make height fit the width */
-    display: inline-block; /* TODO Dont know whether this is needed*/
+    display: inline-block; /* TODO Dont know whether this is needed */
     height: 0;
     padding-bottom: calc(33.33% - 10px);
 }
 
-img {
+div.content-wrap img {
     width: 100%; /* make image completely fit in the div */
     height: auto; /* make image do not stretch. */
 
     /* Make pictures placed centered in parent (which needs to be position: relative;) */
-    position: absolute;
+    position: absolute; /* TODO this pulls the modal context at the bottom */
     margin: auto;
     top: 0;
     left: 0;

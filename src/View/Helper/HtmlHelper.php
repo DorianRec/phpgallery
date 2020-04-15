@@ -66,6 +66,11 @@ class HtmlHelper
         return "<img src=\"$prefix" . $path . '" ' . $opts . '/>';
     }
 
+    static public function imageBase64Encoded(string $path, array $options = []): string
+    {
+        return "<img src='data:image/png;base64," . base64_encode(file_get_contents($path)) . "'>";
+    }
+
     static public function js($path)
     {
         if (gettype($path) == 'string') {
