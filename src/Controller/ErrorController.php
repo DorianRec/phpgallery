@@ -4,8 +4,15 @@ namespace Controller;
 
 class ErrorController extends Controller
 {
-    static public function error(array $pathFragments)
+
+    /**
+     * This generates an arbitrary error page.
+     *
+     * @param string $message the error message
+     */
+    static public function error(array $message): void
     {
-        require_once __DIR__ . '/../../templates/error.php';
+        echo $message;
+        exit();
     }
 }

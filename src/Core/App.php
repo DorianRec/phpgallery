@@ -2,11 +2,18 @@
 
 namespace Core;
 
+use Controller\Controller;
 use Controller\ControllerFactory;
-use Controller\ErrorController;
+use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
 
+/**
+ * Class App
+ * contain core features for this application.
+ *
+ * @package Core
+ */
 class App
 {
     /**
@@ -29,8 +36,7 @@ class App
             $instance = $controller->newInstanceArgs();
             $action = $object['action'];
         } catch (ReflectionException $e) {
-            $instance = new ErrorController();
-            @$action = 'error';
+            throw new InvalidArgumentException("\"{$object['$controller']}\" describes no type of controller.");
         }
         $instance->$action($object['args']);
     }
@@ -44,13 +50,14 @@ class App
      *  'action' => string,
      *  'args' => string
      * ]
-     * @deprecated Not longer usable, since autoload only asks for the
-     * Classname instead of giving the whole "use" path.
      */
-    static public function load(array $object)
+    static public function load(array $object): void
     {
-        $controller = ControllerFactory::build($object['controller']);
-        $action = $object['action'];
-        $controller->$action($object['args']);
+        if ($controller = ControllerFactory::build($object['controller'])) {
+            $action = $object['action'];
+            $controller->$action($object['args']);
+        } else {
+            Controller::error('Page not found!');
+        }
     }
 }

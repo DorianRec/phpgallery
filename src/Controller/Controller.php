@@ -2,6 +2,14 @@
 
 namespace Controller;
 
+use Core\App;
+
+/**
+ * Class Controller
+ * Controllers are building up arbitrary pages.
+ *
+ * @package Controller
+ */
 abstract class Controller
 {
     /**
@@ -15,11 +23,12 @@ abstract class Controller
      *  'args' => string
      * ]
      */
-    public static function redirect(array $path)
+    public static function redirect(array $path): void
     {
         if (gettype($path) == 'array') {
             $path['args'] = [];
-            return App::load($path);
+            App::load($path);
+            return;
         }
     }
 }

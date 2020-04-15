@@ -10,10 +10,10 @@ class ControllerFactory
      * This is a factory method for creating various types of controllers.
      *
      * @param string $controller the type of {@link Controller}, which should be instantiated
-     * @return Controller the withed controller
+     * @return bool|Controller A new controller instance if $controller specifies one. false otherwise.
      * @throws InvalidArgumentException if $controller describes no controller
      */
-    static public function build(string $controller): Controller
+    static public function build(string $controller)
     {
         switch ($controller) {
             case 'File' :
@@ -22,9 +22,7 @@ class ControllerFactory
                 return new GalleryController();
             case 'Main' :
                 return new MainController();
-            case 'Error' :
-                return new ErrorController();
         }
-        throw new InvalidArgumentException("{$controller}Controller must describe an Controller.");
+        return false;
     }
 }

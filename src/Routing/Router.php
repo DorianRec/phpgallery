@@ -42,6 +42,8 @@ class Router
     }
 
     /**
+     * This validates and repairs a given $path.
+     *
      * @param string $path The path given by $_SERVER['path']
      * @return string The fixed path.
      */
@@ -70,8 +72,8 @@ class Router
 
     /**
      * Returns the last Controller/action combination,
-     * found in the the (locations.json by default),
-     * given as array.
+     * found in the $tree (locations.json by default),
+     * as array.
      *
      * @param string $url the given URL
      * @param stdClass|null $tree the tree (locations.json if null)
@@ -113,15 +115,13 @@ class Router
                 }
             }
             if (!$found) {
-                if ($output != null) {
+                if ($output != null)
                     return Json::stdClass_to_array($output);
-                }
                 return $error;
             }
         }
-        if ($output != null) {
+        if ($output != null)
             return Json::stdClass_to_array($output);
-        }
         return $error;
     }
 

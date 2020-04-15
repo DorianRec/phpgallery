@@ -4,6 +4,12 @@ namespace Utility;
 
 use stdClass;
 
+/**
+ * Class Json
+ *
+ * contains utility functions for handling json.
+ * @package Utility
+ */
 class Json
 {
     /**

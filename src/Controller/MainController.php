@@ -10,7 +10,7 @@ class MainController extends Controller
             $CONTROLLER['controller'] = 'Main';
             $CONTROLLER['action'] = 'view';
         } else {
-            return Controller::redirect(['controller' => 'Error', 'action' => 'error']);
+            ErrorController::error('404 Page not found!');
         }
         require_once __DIR__ . '/../../templates/page.php';
     }
