@@ -98,11 +98,11 @@ class HtmlHelper
     static public function js($path)
     {
         if (gettype($path) == 'string') {
-            return "<script src=\"/js/" . $path . ".js\" />\n";
+            return "<script src=\"/js/" . $path . ".js\" /></script>\n";
         } else if (gettype($path) == 'array') {
             $output = '';
             foreach ($path as $file) {
-                $output .= "<script src=\"/js/" . $path . ".js\" />\n";
+                $output .= "<script src=\"/js/" . $path . ".js\" /></script>\n";
             }
             return $output;
         } else
