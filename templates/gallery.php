@@ -22,16 +22,17 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 </div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal"
+">
 
-    <!-- The Close Button -->
-    <span class="close">&times;</span>
+<span class="close" onclick="closeModal()">&times;</span>
 
-    <!-- Modal Content (The Image) -->
-    <img class="modal-content" id="img01">
+<img class="modal-content" id="img01">
 
-    <!-- Modal Caption (Image Text) -->
-    <div id="caption"></div>
+<a class="prev" onclick="decrementImageIndex()">&#10094;</a>
+<a class="next" onclick="incrementImageIndex()">&#10095;</a>
+
+<div id="caption"></div>
 </div>
 
 <script>
