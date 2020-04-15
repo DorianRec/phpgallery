@@ -48,6 +48,7 @@ class FileController
 
         } else {
             echo 'error 404. file not found';
+            return;
         }
     }
 

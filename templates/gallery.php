@@ -5,16 +5,13 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 <head><title>PHPGallery</title>
     <? echo HtmlHelper::css(['styles', 'colors', 'gallery', 'modal']) ?>
 </head>
-<body
-">
+<body>
 <div class="page-container">
-    <div class="header">
-        <?php echo HtmlHelper::header(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?>
-    </div>
+    <div class="header"><?php include 'header.php'; ?></div>
     <div class="content-wrap">
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
-    <div class="footer"><?php echo HtmlHelper::footer(['controller' => $CONTROLLER['controller'], 'action' => $CONTROLLER['action']]); ?></div>
+    <div class="footer"><?php include 'footer.php'; ?></div>
 </div>
 
 <!-- The Modal -->

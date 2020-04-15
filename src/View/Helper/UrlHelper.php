@@ -13,6 +13,8 @@ class UrlHelper
     }
 
     /**
+     * // TODO kick $json
+     * // TODO acceppt ULRs as $struct
      * @param array $struct of the form
      * [
      *  'controller' => 'Gallery'
@@ -30,7 +32,7 @@ class UrlHelper
         if ($full)
             $protocol_and_domain .= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
 
-        $args = ($struct['args'] != "") ? $args = "/{$struct['args']}" : $args = "";
-        return $protocol_and_domain . Router::search_url($struct['controller'], $struct['action'], $json) . $args;
+        $args = ($struct['args'] != "") ? $args = "{$struct['args']}" : $args = "";
+        return $protocol_and_domain . Router::searchPath($struct['controller'], $struct['action'], $json) . $args;
     }
 }

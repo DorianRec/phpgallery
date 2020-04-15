@@ -63,7 +63,7 @@ final class UrlHelperTest extends TestCase
         );
 
         self::assertEquals(
-            '/txt',
+            '/txt/',
             UrlHelper::build([
                 'controller' => 'File',
                 'action' => 'txt',

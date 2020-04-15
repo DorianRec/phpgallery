@@ -396,23 +396,23 @@ final class RouterTest extends TestCase
     }
 
     /**
-     * Tests for {@link Router::search_url()}.
+     * Tests for {@link Router::searchPath()}.
      *
      * @test
      */
     public function searchUrlTest1(): void
     {
         $this->assertEquals(
-            '',
-            Router::search_url('Main', 'view')
+            '/',
+            Router::searchPath('Main', 'view')
         );
         $this->assertEquals(
-            '/gallery',
-            Router::search_url('Gallery', 'view')
+            '/gallery/',
+            Router::searchPath('Gallery', 'view')
         );
         $this->assertEquals(
-            '/img',
-            Router::search_url('File', 'img')
+            '/img/',
+            Router::searchPath('File', 'img')
         );
     }
 }

@@ -127,12 +127,16 @@ class Router
     }
 
     /**
-     * @param string $controller
-     * @param string $action
-     * @param stdClass|null $tree
-     * @return bool|string
+     * Given a controller/action combination,
+     * this returns a path, calling this combination
+     *
+     * @param string $controller {@link Controller}
+     * @param string $action the action of {@link Controller}
+     * @param stdClass|null $tree A tree, containing these (controller,action/URL) combination. (locations.json by default)
+     * @return string The path, if a path exists, which leads to the given $controller/$action combination.
+     * /$controller/$action/, otherwise.
      */
-    static public function search_url(string $controller, string $action, stdClass $tree = null)
+    static public function searchPath(string $controller, string $action, stdClass $tree = null): string
     {
         if ($tree == null) {
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
@@ -140,19 +144,19 @@ class Router
 
         // test initial
         if ($tree->controller == $controller && $tree->action == $action) {
-            return '';
+            return '/';
         }
 
         // we ignore the first and the last string, since they are empty
         foreach ($tree->subtree as $key => $value) {
             if ($value->controller == $controller && $value->action == $action) {
-                return "/$key";
+                return "/$key/";
             }
             if (count((array)$key->subtree) > 0) {
-                $call = self::search_url($controller, $action, $value->subtree);
-                if ($call) return "/$call";
+                $call = self::searchPath($controller, $action, $value->subtree);
+                if ($call) return "/$call/";
             }
         }
-        return '/' . strtolower($controller) . "/$action";
+        return '/' . strtolower($controller) . "/$action/";
     }
 }
