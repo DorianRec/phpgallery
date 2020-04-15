@@ -21,7 +21,11 @@ body {
 
 div.content-wrap {
     margin: 0 5% 0 5%;
-    padding-bottom: 5rem; /* Footer height */
+    /*
+    1. Prevents the footer to overlap the content, BUT
+    2. by only showing one image, the content-wrap has a bit to much height.
+    */
+    padding-bottom: 5rem;
 }
 
 .header a {

@@ -51,6 +51,15 @@ class FileController
         }
     }
 
+    static public function js(array $pathFragments): void
+    {
+        $source = __DIR__ . '/../../webroot/js/' . implode('/', $pathFragments);
+        if (file_exists($source)) {
+            require_once $source;
+            return;
+        }
+    }
+
     static public function txt(array $pathFragments): void
     {
         $source = __DIR__ . '/../../webroot/txt/' . implode('/', $pathFragments);

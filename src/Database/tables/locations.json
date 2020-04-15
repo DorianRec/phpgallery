@@ -27,6 +27,11 @@
       "action": "img",
       "subtree": {}
     },
+    "js": {
+      "controller": "File",
+      "action": "js",
+      "subtree": {}
+    },
     "txt": {
       "controller": "File",
       "action": "txt",

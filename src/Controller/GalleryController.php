@@ -9,7 +9,7 @@ class GalleryController extends Controller
         $CONTROLLER['tags'] = [];
         if ($pathFragments == []) {
             // normal
-        } else if ($pathFragments[0] == 'tags' && count($pathFragments) == 2) {
+        } else if ($pathFragments[0] == 'tags' && count($pathFragments) <= 2) {
             // TODO add all tags
             // TODO let URL look kind with multiple tags
             $CONTROLLER['tags'] = [$pathFragments[1]];

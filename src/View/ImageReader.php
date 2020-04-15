@@ -3,6 +3,7 @@
 class ImageReader
 {
     public const IMAGE_FOLDER = __DIR__ . '/../../webroot/img/';
+    public static $i = 0;
 
     static public function read_images($dir): array
     {
@@ -49,7 +50,10 @@ class ImageReader
                 if (count($tags_array) > 0) {
                     foreach ($tags_array as $tag) {
                         if (in_array($tag, $src->tags)) {
-                            $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key) . "</div>";
+                            $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key, [
+                                    'id' => 'myImg',
+                                    /*'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'*/
+                                ]) . "</div>\n";
 
                             // TODO use base64 on other spots.
                             /*" < div class=\"picture\">
@@ -59,7 +63,10 @@ class ImageReader
                         }
                     }
                 } else {
-                    $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key) . "</div>";
+                    $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key, [
+                            'id' => 'myImg',
+                            /*'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'*/
+                        ]) . "</div>\n";
 
                     // TODO use base64 on other spots.
                     /*" < div class=\"picture\">
