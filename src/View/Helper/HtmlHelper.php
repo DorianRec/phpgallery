@@ -58,6 +58,20 @@ class HtmlHelper
         return $links;
     }
 
+    static public function css($path)
+    {
+        if (gettype($path) == 'string') {
+            return "<link rel=\"stylesheet\" href=\"/css/" . $path . ".css\" />\n";
+        } else if (gettype($path) == 'array') {
+            $output = '';
+            foreach ($path as $file) {
+                $output .= "<link rel=\"stylesheet\" href=\"/css/" . $file . ".css\" />\n";
+            }
+            return $output;
+        } else
+            throw new InvalidArgumentException('$path is of invalid type.');
+    }
+
     /** // TODO PHPDocs
      * @param string $path
      * @param array $options has form [
@@ -79,5 +93,19 @@ class HtmlHelper
                 $opts .= "$key=\"$value\" ";
         }
         return "<img src=\"$prefix" . $path . '" ' . $opts . '/>';
+    }
+
+    static public function js($path)
+    {
+        if (gettype($path) == 'string') {
+            return "<script src=\"/js/" . $path . ".js\" />\n";
+        } else if (gettype($path) == 'array') {
+            $output = '';
+            foreach ($path as $file) {
+                $output .= "<script src=\"/js/" . $path . ".js\" />\n";
+            }
+            return $output;
+        } else
+            throw new InvalidArgumentException('$path is of invalid type.');
     }
 }

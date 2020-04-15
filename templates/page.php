@@ -3,8 +3,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 ?>
 <html lang="de">
 <head>
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/styles.css' ?>">
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/colors.css' ?>">
+    <? echo HtmlHelper::css(['styles', 'colors']) ?>
     <title>PHPGallery</title>
 </head>
 <body>

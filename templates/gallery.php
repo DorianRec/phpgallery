@@ -3,11 +3,7 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 ?>
 <html lang="de">
 <head><title>PHPGallery</title>
-
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/styles.css' ?>">
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/colors.css' ?>">
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/gallery.css' ?>">
-    <link rel="stylesheet" href="<? echo UrlHelper::get_protocol_and_domain() . '/css/modal.css' ?>">
+    <? echo HtmlHelper::css(['styles', 'colors', 'gallery', 'modal']) ?>
 </head>
 <body
 ">
@@ -35,8 +31,6 @@ require_once __DIR__ . '/../src/Core/autoload.php';
 <div id="caption"></div>
 </div>
 
-<script>
-    <? include __DIR__ . '/../webroot/js/modal.js' ?>
-</script>
+<? echo HtmlHelper::js('modal') ?>
 </body>
 </html>
