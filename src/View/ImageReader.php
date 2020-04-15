@@ -50,9 +50,10 @@ class ImageReader
                 if (count($tags_array) > 0) {
                     foreach ($tags_array as $tag) {
                         if (in_array($tag, $src->tags)) {
-                            $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key, [
+                            $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
+                                    'class' => 'image',
                                     'id' => 'myImg',
-                                    /*'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'*/
+                                    'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'
                                 ]) . "</div>\n";
 
                             // TODO use base64 on other spots.
@@ -63,9 +64,10 @@ class ImageReader
                         }
                     }
                 } else {
-                    $output .= "<div class=\"picture\">" . HtmlHelper::image($relative_path . $key, [
+                    $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
+                            'class' => 'image',
                             'id' => 'myImg',
-                            /*'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'*/
+                            'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'
                         ]) . "</div>\n";
 
                     // TODO use base64 on other spots.

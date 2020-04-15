@@ -4,7 +4,7 @@ div.content-wrap {
     height: fit-content; /* TODO Dont know whether this is needed*/
 }
 
-div.picture {
+div.picture-wrap {
     position: relative;
     overflow: hidden; /* make img not overflow the div.picture */
     float: left; /* order img to the left */

@@ -8,10 +8,8 @@ class GalleryController extends Controller
         $CONTROLLER['action'] = 'view';
         $CONTROLLER['tags'] = [];
         if ($pathFragments == []) {
-            // normal
+            // TODO add images here.
         } else if ($pathFragments[0] == 'tags' && count($pathFragments) <= 2) {
-            // TODO add all tags
-            // TODO let URL look kind with multiple tags
             $CONTROLLER['tags'] = [$pathFragments[1]];
         } else {
             echo 'error';
