@@ -28,8 +28,8 @@
 .modal-content {
     margin: auto; /* important for the image, to be centered on the x-axis */
     display: block; /* important, such that the image is not ordered on the x-axis */
-/ / width: 80 %;
-/ / max-width: 700 px;
+    /*width: 80%;*/
+    max-width: 700px; /* maybe makes sense*/
     max-height: calc(100% - 100px); /* 100% means here, the screen minus the 100px padding from the modal*/
 }
 
@@ -37,12 +37,12 @@
 #caption {
     margin: auto; /* see above */
     display: block; /* see above */
-/ / width: 80 %;
+    /*width: 80%;*/
     max-width: 700px; /* let the text not going over the whole width */
     text-align: center; /* nicht rechtsbündig */
     color: #ccc; /* important, such that we can read this caption */
-    padding: 10px 0; /* little padding from image */
-/ / height: 150 px;
+    padding: 10px 0 100px 0; /* little padding from image and from bottom for Augenkomport!! */
+    /*height: 150px;*/
 }
 
 /* Add Animation - Zoom in the Modal */
