@@ -63,7 +63,16 @@ class Router
         return $path;
     }
 
-    static public function findLastSetup(string $url, stdClass $tree = null): stdClass
+    /**
+     * Returns the last Controller/action combination,
+     * found in the the (locations.json by default),
+     * given as array.
+     *
+     * @param string $url the given URL
+     * @param stdClass|null $tree the tree (locations.json if null)
+     * @return array the last Controller/action combination, found in $tree (locations.json by default)
+     */
+    static public function findLastSetup(string $url, stdClass $tree = null): array
     {
         if ($tree == null)
             $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
@@ -77,14 +86,12 @@ class Router
             $output->args = array_slice($parts, 1, count($parts) - 2);
         }
 
-        $error = Json::array_to_stdclass(
-            [
-                'controller' => 'Error',
-                'action' => 'error',
-                'subtree' => []
-            ]
-        );
-        $error->args = array_slice($parts, 1, count($parts) - 2);
+        $error = [
+            'controller' => 'Error',
+            'action' => 'error',
+            'subtree' => []
+        ];
+        $error['args'] = array_slice($parts, 1, count($parts) - 2);
 
         // we ignore the first and the last string, since they are empty
         for ($i = 1; $i < count($parts) - 1; $i++) {
@@ -102,13 +109,13 @@ class Router
             }
             if (!$found) {
                 if ($output != null) {
-                    return $output;
+                    return Json::stdClass_to_array($output);
                 }
                 return $error;
             }
         }
         if ($output != null) {
-            return $output;
+            return Json::stdClass_to_array($output);
         }
         return $error;
     }

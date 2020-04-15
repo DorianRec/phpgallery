@@ -2,11 +2,11 @@
 
 class App
 {
-    static public function load(stdClass $object): void
+    static public function load(array $object)
     {
-        $controller = new ReflectionClass($object->controller . 'Controller');
+        $controller = new ReflectionClass($object['controller'] . 'Controller');
         $instance = $controller->newInstanceArgs();
-        $action = $object->action;
-        $instance->$action($object->args);
+        $action = $object['action'];
+        $instance->$action($object['args']);
     }
 }

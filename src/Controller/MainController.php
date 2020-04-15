@@ -8,8 +8,7 @@ class MainController
             $CONTROLLER['controller'] = 'Main';
             $CONTROLLER['action'] = 'view';
         } else {
-            echo 'error';
-            return;
+            return Controller::redirect(['controller' => 'Error', 'action' => 'error']);
         }
         require_once __DIR__ . '/../../templates/page.php';
     }

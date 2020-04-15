@@ -3,9 +3,9 @@
 class Json
 {
     /**
-     * Converts and array into a stdClass.
+     * Converts an array into a stdClass.
      *
-     * @param array $array which will convert to stdClass
+     * @param array $array which will convert to a stdClass
      * @return stdClass the converted $array
      */
     static public function array_to_stdclass(array $array): stdClass
@@ -18,5 +18,23 @@ class Json
             $stdClass->$key = $value;
         }
         return $stdClass;
+    }
+
+    /**
+     * Converts a stdClass into an array.
+     *
+     * @param stdClass $stdClass which will convert to an array
+     * @return stdClass the converted $array
+     */
+    static public function stdClass_to_array(stdClass $stdClass): array
+    {
+        $array = [];
+        foreach ($stdClass as $key => $value) {
+            if (is_object($value)) {
+                $value = self::stdClass_to_array($value);
+            }
+            $array[$key] = $value;
+        }
+        return $array;
     }
 }
