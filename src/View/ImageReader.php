@@ -53,7 +53,7 @@ class ImageReader
                             $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
                                     'class' => 'image',
                                     'id' => 'myImg',
-                                    'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'
+                                    'onclick' => 'openModal();setImageIndex(' . self::$i++ . ')'
                                 ]) . "</div>\n";
 
                             // TODO use base64 on other spots.
@@ -67,7 +67,7 @@ class ImageReader
                     $output .= "<div class=\"picture-wrap\">" . HtmlHelper::image($relative_path . $key, [
                             'class' => 'image',
                             'id' => 'myImg',
-                            'onclick' => 'openModal();currentSlide(' . self::$i++ . ')'
+                            'onclick' => 'openModal();setImageIndex(' . self::$i++ . ')'
                         ]) . "</div>\n";
 
                     // TODO use base64 on other spots.
