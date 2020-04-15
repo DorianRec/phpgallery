@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use View\Helper\HtmlHelper;
+
 $links = [
     'Home' => ['controller' => 'Main', 'action' => 'view'],
     'Gallery' => ['controller' => 'Gallery', 'action' => 'view']

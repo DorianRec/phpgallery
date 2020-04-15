@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
 
+namespace Utility;
+
+use stdClass;
+
 class Json
 {
     /**

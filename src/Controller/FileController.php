@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-class FileController
+namespace Controller;
+
+class FileController extends Controller
 {
 
     static public function css(array $pathFragments): void

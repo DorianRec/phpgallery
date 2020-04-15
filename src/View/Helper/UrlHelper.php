@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+namespace View\Helper;
+
+use Routing\Router;
+use stdClass;
+
 class UrlHelper
 {
     static public function get_url(): string

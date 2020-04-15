@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+namespace View;
+
+use stdClass;
+use View\Helper\HtmlHelper;
+
 class ImageReader
 {
     public const IMAGE_FOLDER = __DIR__ . '/../../webroot/img/';

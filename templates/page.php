@@ -1,7 +1,9 @@
 <?php declare(strict_types=1); ?>
 <html lang="de">
 <head>
-    <? echo HtmlHelper::css(['styles', 'colors']) ?>
+    <? use View\Helper\HtmlHelper;
+
+    echo HtmlHelper::css(['styles', 'colors']) ?>
     <title>PHPGallery</title>
 </head>
 <body>

@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+namespace Routing;
+
+use stdClass;
+use Utility\Json;
+
 class Router
 {
     /**

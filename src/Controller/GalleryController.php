@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Controller;
+
 class GalleryController extends Controller
 {
     static public function view(array $pathFragments)

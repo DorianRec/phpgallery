@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Routing\Router;
+use Utility\Json;
 
 final class RouterTest extends TestCase
 {

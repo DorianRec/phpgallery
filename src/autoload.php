@@ -3,7 +3,7 @@
  * Make every class available.
  */
 spl_autoload_register(function ($class) {
-    if (file_exists(__DIR__ . '/Controller/' . $class . '.php'))
+    /*if (file_exists(__DIR__ . '/Controller/' . $class . '.php'))
         include __DIR__ . '/Controller/' . $class . '.php';
     else if (file_exists(__DIR__ . '/Core/' . $class . '.php'))
         include __DIR__ . '/Core/' . $class . '.php';
@@ -16,5 +16,7 @@ spl_autoload_register(function ($class) {
     else if (file_exists(__DIR__ . '/View/' . $class . '.php'))
         include __DIR__ . '/View/' . $class . '.php';
     else if (file_exists(__DIR__ . '/View/Helper/' . $class . '.php'))
-        include __DIR__ . '/View/Helper/' . $class . '.php';
+        include __DIR__ . '/View/Helper/' . $class . '.php';*/
+    $class = str_replace('\\', '/', $class);
+    include $class . '.php';
 });

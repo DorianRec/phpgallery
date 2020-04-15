@@ -2,7 +2,10 @@
 ?>
 <html lang="de">
 <head><title>PHPGallery</title>
-    <? echo HtmlHelper::css(['styles', 'colors', 'gallery', 'modal']) ?>
+    <? use View\Helper\HtmlHelper;
+    use View\ImageReader;
+
+    echo HtmlHelper::css(['styles', 'colors', 'gallery', 'modal']) ?>
 </head>
 <body>
 <div class="page-container">

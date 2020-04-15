@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
-/**
- * This file does contain only the class HtmlHelper.
- */
+
+namespace View\Helper;
 
 /**
  * Class HtmlHelper

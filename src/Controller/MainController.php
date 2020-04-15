@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-class MainController
+namespace Controller;
+
+class MainController extends Controller
 {
     static public function view(array $pathFragments)
     {
