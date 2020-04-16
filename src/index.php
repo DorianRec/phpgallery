@@ -16,6 +16,9 @@ $router->connect('/a/*', '4::4');
 $router->connect('/a/**', '5::5');
 */
 
+include __DIR__ . '/../config/routes.php';
+print_r(Router::$tree);
+
 App::load(
-    Router::findLastSetup(
+    Router::urlToCombo(
         UrlHelper::get_url()));

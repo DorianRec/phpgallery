@@ -38,6 +38,6 @@ class UrlHelper
             $protocol_and_domain .= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
 
         $args = ($struct['args'] != "") ? $args = "{$struct['args']}" : $args = "";
-        return $protocol_and_domain . Router::searchPath($struct['controller'], $struct['action'], $json) . $args;
+        return $protocol_and_domain . Router::comboToURL($struct['controller'], $struct['action'], $json) . $args;
     }
 }

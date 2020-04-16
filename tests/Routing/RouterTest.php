@@ -59,7 +59,11 @@ final class RouterTest extends TestCase
             ))
     ];
 
-    /** @test */
+    /**
+     * Tests for {@link Router::connect()}
+     *
+     * @test
+     */
     public function connectLocationsTest1()
     {
         $json = "{
@@ -104,8 +108,6 @@ final class RouterTest extends TestCase
   }
 }
 ";
-
-        Router::$tree = null;
         Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
         Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
         Router::connect('/page', ['controller' => 'Main', 'action' => 'view']);
@@ -117,6 +119,25 @@ final class RouterTest extends TestCase
         self::assertTrue(Router::$tree == json_decode($json), 'Router::$tree != json_decode($json)' . "\n" .
             'Router::$tree: ' . print_r(Router::$tree) . "\n" .
             'json_decode($json): ' . print_r(json_decode($json)));
+    }
+
+    /**
+     * Tests for {@link Router::urlToCombo()}.
+     *
+     * @test
+     */
+    public function findLastSetupTest1()
+    {
+        Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
+        Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
+        Router::connect('/page', ['controller' => 'Main', 'action' => 'view']);
+        Router::connect('/css', ['controller' => 'File', 'action' => 'css']);
+        Router::connect('/html', ['controller' => 'File', 'action' => 'html']);
+        Router::connect('/img', ['controller' => 'File', 'action' => 'img']);
+        Router::connect('/js', ['controller' => 'File', 'action' => 'js']);
+        Router::connect('/txt', ['controller' => 'File', 'action' => 'txt']);
+
+        self::compareCombos(Router::urlToCombo('http://example.de/gallery/'), ['controller' => 'Gallery', 'action' => 'view']);
     }
 
     /**
@@ -458,7 +479,7 @@ final class RouterTest extends TestCase
     }
 
     /**
-     * Tests for {@link Router::searchPath()}.
+     * Tests for {@link Router::comboToURL()}.
      *
      * @test
      */
@@ -466,15 +487,29 @@ final class RouterTest extends TestCase
     {
         $this->assertEquals(
             '/',
-            Router::searchPath('Main', 'home')
+            Router::comboToURL('Main', 'home')
         );
         $this->assertEquals(
             '/gallery/',
-            Router::searchPath('Gallery', 'view')
+            Router::comboToURL('Gallery', 'view')
         );
         $this->assertEquals(
             '/img/',
-            Router::searchPath('File', 'img')
+            Router::comboToURL('File', 'img')
         );
+    }
+
+    private static function compareCombos($expected, $actual): void
+    {
+        self::assertEquals($expected['controller'], $actual['controller'],
+            "Expected controller to equal {$expected['controller']}, but was {$actual['controller']}!");
+        self::assertEquals($expected['action'], $actual['action'],
+            "Expected action to equal {$expected['action']}, but was {$actual['action']}!");
+    }
+
+    private static function compareURLs($expected, $actual): void
+    {
+        self::assertEquals($expected, $actual,
+            "Expected URL to equal $expected, but was $actual!");
     }
 }

@@ -134,7 +134,7 @@ class Router
      * @param string $url the given URL
      * @return array the last Controller/action combination, found in $tree (locations.json by default)
      */
-    static public function findLastSetup(string $url): array
+    static public function urlToCombo(string $url): array
     {
         $content = parse_url($url);
         $parts = explode('/', Router::fixPath($content['path']));
@@ -193,7 +193,7 @@ class Router
      * @return string The path if a path exists, which leads to the given $controller/$action combination.
      * /$controller/$action/, otherwise.
      */
-    static public function searchPath(string $controller, string $action): string
+    static public function comboToURL(string $controller, string $action): string
     {
         // test initial
         if (self::$tree->controller == $controller && self::$tree->action == $action) {
@@ -206,7 +206,7 @@ class Router
                 return "/$key/";
             }
             if (count((array)$key->subtree) > 0) {
-                $call = self::searchPath($controller, $action, $value->subtree);
+                $call = self::comboToURL($controller, $action, $value->subtree);
                 if ($call) return "/$call/";
             }
         }

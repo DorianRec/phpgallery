@@ -7,7 +7,6 @@ use Controller\ControllerFactory;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
-use Routing\Router;
 
 /**
  * Class App
@@ -54,9 +53,6 @@ class App
      */
     static public function load(array $object): void
     {
-        include __DIR__ . '/../../config/routes.php';
-        print_r(Router::$tree);
-
         if ($controller = ControllerFactory::build($object['controller'])) {
             $action = $object['action'];
             $controller->$action($object['args']);
