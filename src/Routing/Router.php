@@ -128,24 +128,21 @@ class Router
 
     /**
      * Returns the last Controller/action combination,
-     * found in the $tree (locations.json by default),
+     * found in the self::$tree,
      * as array.
      *
      * @param string $url the given URL
-     * @param stdClass|null $tree the tree (locations.json if null)
      * @return array the last Controller/action combination, found in $tree (locations.json by default)
      */
-    static public function findLastSetup(string $url, stdClass $tree = null): array
+    static public function findLastSetup(string $url): array
     {
-        if ($tree == null)
-            $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
         $content = parse_url($url);
         $parts = explode('/', Router::fixPath($content['path']));
 
         $output = null;
         // In case, no path except '/' is given
-        if (self::terminationCondition($tree)) {
-            $output = $tree;
+        if (self::terminationCondition(self::$tree)) {
+            $output = self::$tree;
             $output->args = array_slice($parts, 1, count($parts) - 2);
         }
 
@@ -159,7 +156,7 @@ class Router
         // we ignore the first and the last string, since they are empty
         for ($i = 1; $i < count($parts) - 1; $i++) {
             $found = false;
-            foreach ($tree->subtree as $key => $page) {
+            foreach (self::$tree->subtree as $key => $page) {
                 if (strtolower($key) == strtolower($parts[$i])) {
                     $found = true;
                     $tree = $page;

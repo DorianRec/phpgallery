@@ -38,7 +38,11 @@ final class UrlHelperTest extends TestCase
 }
 ";
 
-    /** @test */
+    /**
+     * Tests for {@link UrlHelper::build()}
+     *
+     * @test
+     */
     public function buildTest1()
     {
         self::assertEquals(
