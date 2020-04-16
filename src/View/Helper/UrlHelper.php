@@ -2,42 +2,70 @@
 
 namespace View\Helper;
 
+use InvalidArgumentException;
 use Routing\Router;
-use stdClass;
 
+/**
+ * Class UrlHelper
+ * This class contain helper methods for handling URLs.
+ *
+ * @package View\Helper
+ */
 class UrlHelper
 {
+    /**
+     * Returns the current URL.
+     * Example:
+     * http://example.de/path/to/location
+     *
+     * @return string the current URL
+     */
     static public function get_url(): string
     {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     }
 
+    /**
+     * Returns the current protocol and domain.
+     * Example: http://example.de
+     *
+     * @return string the current protocol and domain.
+     */
     static public function get_protocol_and_domain(): string
     {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
     }
 
     /**
-     * // TODO kick $json
-     * // TODO acceppt ULRs as $struct
-     * @param array $struct of the form
-     * [
+     * Converts a controller/action combination into a path.
+     * // TODO accept ULRs as $struct
+     * @param array $struct containing the controller/action combination
+     * Example: [
      *  'controller' => 'Gallery'
      *  'action' => 'view'
-     *  'args' => 'foo/bar'
+     *  'foo/bar' // optional
      * ]
-     * @param bool $full tells, whether protocol and domain should be appended to url.
-     * @param stdClass|null $json the database containing the controller, action/url mapping
-     * @return string the URL, like
-     * '/gallery/view/foo/bar/'
+     * @param bool $full tells, whether protocol and domain should be appended to url. (false by default)
+     * @return string the path pointing to the given controller/action combination in $struct.
+     * Example:
+     * '/gallery/view/foo/bar'
      */
-    static public function build(array $struct, bool $full = false, stdClass $json = null): string
+    static public function build(array $struct, bool $full = false): string
     {
-        $protocol_and_domain = '';
-        if ($full)
-            $protocol_and_domain .= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+        if (!isset($struct['controller']) || !isset($struct['action']))
+            throw new InvalidArgumentException('$struct[\'controller\'] and $struct[\'action\'] must be set!');
 
-        $args = ($struct['args'] != "") ? $args = "{$struct['args']}" : $args = "";
-        return $protocol_and_domain . Router::comboToURL($struct['controller'], $struct['action'], $json) . $args;
+        $protocol_and_domain = '';
+        if ($full) $protocol_and_domain .= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+        $args = '';
+        for ($i = 0; $i < count($struct) - 2; $i++) {
+            if ($struct[$i] != '') $args .= "/{$struct[$i]}";
+        }
+
+        if (!$path = Router::comboToPath($struct['controller'], $struct['action']))
+            $path = "/{$struct['controller']}/{$struct['action']}";
+
+        return strtolower($protocol_and_domain . $path . $args);
     }
 }

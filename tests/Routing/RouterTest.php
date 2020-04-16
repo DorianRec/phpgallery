@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use Routing\Router;
 use Utility\Json;
+use function PHPUnit\Framework\assertFalse;
 
 final class RouterTest extends TestCase
 {
@@ -157,7 +158,7 @@ final class RouterTest extends TestCase
     }
 
     /**
-     * Tests for {@link Router::urlToCombo()}.
+     * Tests for {@link Router::pathToCombo()}.
      *
      * @test
      */
@@ -173,11 +174,11 @@ final class RouterTest extends TestCase
         Router::connect('/js', ['controller' => 'File', 'action' => 'js']);
         Router::connect('/txt', ['controller' => 'File', 'action' => 'txt']);
 
-        self::compareCombos(Router::urlToCombo('http://example.de/gallery/'), ['controller' => 'Gallery', 'action' => 'view']);
+        self::compareCombos(Router::pathToCombo('/gallery'), ['controller' => 'Gallery', 'action' => 'view']);
     }
 
     /**
-     * Test for {@link Router::urlToCombo()}.
+     * Test for {@link Router::pathToCombo()}.
      * Here we test, whether we get the home page.
      *
      * @test
@@ -189,24 +190,7 @@ final class RouterTest extends TestCase
         Router::$tree = null;
         Router::connect('/', $expected);
         self::compareCombos($expected,
-            Router::urlToCombo('http://example.de/'));
-    }
-
-    /**
-     * Test for {@link Router::urlToCombo()}.
-     * Here we test, whether https is accepted.
-     *
-     * @test
-     */
-    public function urlToComboHttpsTest1(): void
-    {
-        $expected = ['controller' => "0", 'action' => "1"];
-
-        Router::$tree = null;
-        Router::connect('/', $expected);
-        self::compareCombos($expected,
-            Router::urlToCombo('https://example.de/'));
-
+            Router::pathToCombo('/'));
     }
 
     /**
@@ -218,190 +202,174 @@ final class RouterTest extends TestCase
     public function parseErrorTest1(): void
     {
         Router::$tree = null;
-        self::assertFalse(Router::urlToCombo('http://example.de/f7fiyfifuiy/'));
-    }
-
-
-    /** @test */
-    public function parseErrorTest2(): void
-    {
-        $expected = ['controller' => 'NotExisting', 'action' => 'alsoNotExisting'];
-        Router::$tree = null;
-        self::compareCombos($expected, Router::urlToCombo('http://example.de/notexisting/alsonotexisting/'));
+        assertFalse(Router::pathToCombo('/f7fiyfifuiy'));
+        assertFalse(Router::pathToCombo('/notexisting/alsonotexisting'));
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::pathToCombo()}.
      * Here we test the function with simple paths.
      *
      * @test
      */
-    public function parseSimpleTest1(): void
+    public function urlToComboSimpleTest1(): void
     {
         Router::$tree = null;
+        $wrong = ['controller' => 'Wrong', 'action' => 'way'];
         $home = ['controller' => 'Main', 'action' => 'home'];
         $page = ['controller' => 'Pages', 'action' => 'view'];
         $overpage = ['controller' => 'Over', 'action' => 'upper'];
 
+        Router::connect('/', $wrong);
         Router::connect('/home', $home);
         Router::connect('/page', $page);
         Router::connect('/overpage123', $overpage);
 
-        self::compareCombos(Router::urlToCombo('http://example.de/home/'), $home);
-        self::compareCombos(Router::urlToCombo('http://example.de/page/'), $page);
-        self::compareCombos(Router::urlToCombo('http://example.de/overpage123/'), $overpage);
+        self::compareCombos(Router::pathToCombo('/home/'), $home);
+        self::compareCombos(Router::pathToCombo('/page/'), $page);
+        self::compareCombos(Router::pathToCombo('/overpage123/'), $overpage);
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::pathToCombo()}.
      * Here we test whether the function is able to dive into deep path trees.
      *
      * @test
      */
-    public function parseComplexTest1(): void
+    public function urlToComboComplexTest1(): void
     {
-        $this->assertEquals(
-            4,
-            Router::treeSearch('http://example.de/overpage123/footer/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            6,
-            Router::treeSearch('http://example.de/overpage123/sunderpage/', json_decode(self::$json))->content
-        );
+        $wrong = ['controller' => 'WrongWay', 'action' => 'wrongWay'];
+        $expected1 = ['controller' => '1', 'action' => '2'];
+        $expected2 = ['controller' => '3', 'action' => '4'];
+        $expected3 = ['controller' => '5', 'action' => '6'];
+
+        Router::$tree = null;
+        Router::connect('/', $wrong);
+        Router::connect('/overpage123/footer', $expected1);
+        Router::connect('/overpage123/footer/lower', $expected2);
+        Router::connect('/overpage123/sunderpage', $expected3);
+        self::compareCombos($expected1, Router::pathToCombo('http://example.de/overpage123/footer/'));
+        self::compareCombos($expected2, Router::pathToCombo('http://example.de/overpage123/footer/lower/'));
+        self::compareCombos($expected3, Router::pathToCombo('http://example.de/overpage123/sunderpage/'));
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::pathToCombo()}.
      * In this test, we test whether the function differs between upper and lower caps.
      *
      * @test
      */
-    public function parseCapsTest1(): void
+    public function urlToComboCapsTest1(): void
     {
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123/footer/lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/OVERPAGE123/FOOTER/LOWER/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/OvErPaGe123/FoOtEr/LoWeR/', json_decode(self::$json))->content
-        );
+        $expected = ['controller' => 'Footer', 'action' => 'lower'];
+
+        Router::$tree = null;
+        Router::connect('/overpage123', $expected);
+
+        self::compareCombos($expected, Router::pathToCombo('/overpage123/footer/lower'));
+        self::compareCombos($expected, Router::pathToCombo('/OVERPAGE123/FOOTER/LOWER'));
+        self::compareCombos($expected, Router::pathToCombo('/OvErPaGe123/FoOtEr/LoWeR'));
+    }
+
+    /** @test */
+    public function urlToComboCapsTest2(): void
+    {
+        $wrong = ['controller' => 'Wrong', 'action' => 'way'];
+        $expected = ['controller' => 'MathEngine', 'action' => 'calculateSquareRoot'];
+
+        Router::$tree = null;
+        Router::connect('/', $wrong);
+        Router::connect('/math', $expected);
+
+        self::compareCombos(Router::pathToCombo('http://example.de/math/mathengine/calculate_square_root/'), $expected);
+        self::assertFalse(Router::pathToCombo('http://example.de/math/mathengine/calculatesquareroot/'));
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::pathToCombo()}.
      * In this test, the last slash is missing.
      *
      * @test
      */
-    public function parseMissingSlashTest1(): void
+    public function urlToComboMissingSlashTest1(): void
     {
-        $this->assertEquals(
-            "0",
-            Router::treeSearch('http://example.de', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            false,
-            Router::treeSearch('http://example.de/f7fiyfifuiy', json_decode(self::$json))
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123/footer/lower', json_decode(self::$json))->content
-        );
+        $expected1 = ['controller' => 'Main', 'action' => 'view'];
+        $expected2 = ['controller' => 'Hidden', 'action' => 'gone'];
+
+        Router::$tree = null;
+        Router::connect('/', $expected1);
+        Router::connect('/overpage123/footer/lower', $expected2);
+
+        self::compareCombos($expected1, Router::pathToCombo('http://example.de'));
+        self::compareCombos($expected2, Router::pathToCombo('http://example.de/overpage123/footer/lower'));
+    }
+
+    public function urlToComboMissingSlashTest2(): void
+    {
+        Router::$tree = null;
+        assertFalse(Router::pathToCombo('http://example.de/f7fiyfifuiy'));
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::pathToCombo()}.
      * This paths contain different mutations.
      *
      * @test
      */
-    public function parseDifferentMutationsTest(): void
+    public function urlToComboDifferentMutationsTest(): void
     {
+        // TODO make this fixPath tests
+        $expected1 = ['controller' => 'Main', 'action' => 'view'];
+        $expected2 = ['controller' => 'Deep', 'action' => 'in'];
+
+        Router::$tree = null;
+        Router::connect('/', $expected1);
+        Router::connect('/overpage123/footer/lower', $expected2);
+
         // used two slashes
-        $this->assertEquals(
-            0,
-            Router::treeSearch('http://example.de//', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de//overpage123/footer/lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123//footer/lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123/footer//lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123/footer/lower//', json_decode(self::$json))->content
-        );
-        // used backslash instead of normals slashs
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123\\footer/lower/', json_decode(self::$json))->content
-        );
-        // multiple slashes
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123///////footer/lower/', json_decode(self::$json))->content
-        );
-        // mixed slashes and backslashes
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
-        );
+        self::compareCombos($expected1, Router::pathToCombo(('http://example.de//')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de//overpage123/footer/lower/')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123//footer/lower/')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123/footer//lower/')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123/footer/lower//')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123\\footer/lower/')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123///////footer/lower/')));
+        self::compareCombos($expected2, Router::pathToCombo(('http://example.de/overpage123//\\\\/footer/lower/')));
     }
 
     /**
-     * Tests for {@link Router::treeSearch()}.
+     * Tests for {@link Router::pathToCombo()}.
      * Backslashes followed directly after the domain is interpreted as part of the url instead of the beginning of the path.
      *
      * @test
      */
-    public function parseSpecialCaseTest1(): void
+    public function urlToComboSpecialCaseTest1(): void
     {
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de\\/overpage123//\\\\/footer/lower/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            5,
-            Router::treeSearch('http://example.de\\overpage123//\\overpage123\\/footer/lower/', json_decode(self::$json))->content
-        );
+        $expected = ['controller' => 'Localhost', 'action' => 'localhost'];
+
+        Router::$tree = null;
+        Router::connect('/overpage123/footer/lower', $expected);
+
+        self::compareCombos($expected, Router::pathToCombo(('http://example.de\\/overpage123//\\\\/footer/lower/')));
+        self::compareCombos($expected, Router::pathToCombo(('http://example.de\\overpage123//\\overpage123\\/footer/lower/')));
     }
 
     /**
-     * Tests for {@link Router::treeSearch()}.
+     * Tests for {@link Router::pathToCombo()}.
      * Without http or https, the host is interpreted in parse_url as part of a path.
      *
      * @test
      */
-    public function parseSpecialTest2(): void
+    public function urlToComboSpecialTest2(): void
     {
-        $this->assertEquals(
-            42,
-            Router::treeSearch('example.de', Json::arrayToStdClass(self::$special2))->content
-        );
-        $this->assertEquals(
-            666,
-            Router::treeSearch('localhost', Json::arrayToStdClass(self::$special2))->content
-        );
-        $this->assertEquals(
-            666,
-            Router::treeSearch('127.0.0.1', Json::arrayToStdClass(self::$special2))->content
-        );
+        $expected = ['controller' => 'Localhost', 'action' => 'localhost'];
+
+        Router::$tree = null;
+        Router::connect('/', $expected);
+
+        self::compareCombos($expected, Router::pathToCombo(('example.de')));
+        self::compareCombos($expected, Router::pathToCombo(('localhost')));
+        self::compareCombos($expected, Router::pathToCombo(('127.0.0.1')));
     }
 
     /**
@@ -527,23 +495,28 @@ final class RouterTest extends TestCase
     }
 
     /**
-     * Tests for {@link Router::comboToURL()}.
+     * Tests for {@link Router::comboToPath()}.
      *
      * @test
      */
-    public function searchUrlTest1(): void
+    public function comboToURLTest1(): void
     {
+        Router::$tree = null;
+        Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
+        Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
+        Router::connect('/img', ['controller' => 'File', 'action' => 'img']);
+
         $this->assertEquals(
             '/',
-            Router::comboToURL('Main', 'home')
+            Router::comboToPath('Main', 'home')
         );
         $this->assertEquals(
-            '/gallery/',
-            Router::comboToURL('Gallery', 'view')
+            '/gallery',
+            Router::comboToPath('Gallery', 'view')
         );
         $this->assertEquals(
-            '/img/',
-            Router::comboToURL('File', 'img')
+            '/img',
+            Router::comboToPath('File', 'img')
         );
     }
 
@@ -559,5 +532,13 @@ final class RouterTest extends TestCase
     {
         self::assertEquals($expected, $actual,
             "Expected URL to equal $expected, but was $actual!");
+    }
+
+    /**
+     * @test
+     */
+    public static function fixPathTest3()
+    {
+        self::assertEquals('/', Router::fixPath('/../../../'));
     }
 }

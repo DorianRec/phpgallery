@@ -6,26 +6,30 @@ use Utility\Naming;
 final class NamingTest extends TestCase
 {
     /**
-     * Tests for {@link Naming::lowerToUpper()}
+     * Tests for {@link Naming::lowerActionToUpper()}
      * @test
      */
-    public static function lowerToUpperTest1()
+    public static function lowerActionToUpperTest1()
     {
-        self::assertEquals('viewAll', Naming::lowerToUpper('view_all'));
-        self::assertEquals('viewAllPages', Naming::lowerToUpper('view_all_pages'));
-        self::assertEquals('loadURL', Naming::lowerToUpper('load_u_r_l'));
+        self::assertEquals('viewAll', Naming::lowerActionToUpper('view_all'));
+        self::assertEquals('viewAllPages', Naming::lowerActionToUpper('view_all_pages'));
+        self::assertEquals('loadURL', Naming::lowerActionToUpper('load_u_r_l'));
+        self::assertEquals('sWT', Naming::lowerActionToUpper('s_w_t'));
+        self::assertEquals('_Construct', Naming::lowerActionToUpper('__construct')); // invalid
+        self::assertEquals('__DIR__', Naming::lowerActionToUpper('__DIR__')); // invalid
     }
 
     /**
-     * Tests for P@link Naming::upperToLower()}
+     * Tests for P@link Naming::upperActionToLower()}
      *
      * @test
      */
-    public static function upperToLowerTest1()
+    public static function upperActionToLowerTest1()
     {
-        self::assertEquals('view_all_pages', Naming::upperToLower('viewAllPages'));
-        self::assertEquals('view_all', Naming::upperToLower('viewAll'));
-        self::assertEquals('load_u_r', Naming::upperToLower('loadUR'));
-        self::assertEquals('load_u_r_l', Naming::upperToLower('loadURL'));
+        self::assertEquals('view_all_pages', Naming::upperActionToLower('viewAllPages'));
+        self::assertEquals('view_all', Naming::upperActionToLower('viewAll'));
+        self::assertEquals('load_u_r', Naming::upperActionToLower('loadUR'));
+        self::assertEquals('load_u_r_l', Naming::upperActionToLower('loadURL'));
+        self::assertEquals('s_w_t', Naming::upperActionToLower('SWT')); // invalid
     }
 }

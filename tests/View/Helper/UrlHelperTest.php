@@ -1,42 +1,30 @@
 <?php declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Routing\Router;
 use View\Helper\UrlHelper;
 
 final class UrlHelperTest extends TestCase
 {
-    static public $json = "{
-  \"controller\": \"Main\",
-  \"action\": \"view\",
-  \"subtree\": {
-    \"gallery\": {
-      \"controller\": \"Gallery\",
-      \"action\": \"view\",
-      \"subtree\": {}
-    },
-    \"css\": {
-      \"controller\": \"File\",
-      \"action\": \"css\",
-      \"subtree\": {}
-    },
-    \"html\": {
-      \"controller\": \"File\",
-      \"action\": \"html\",
-      \"subtree\": {}
-    },
-    \"img\": {
-      \"controller\": \"File\",
-      \"action\": \"img\",
-      \"subtree\": {}
-    },
-    \"txt\": {
-      \"controller\": \"File\",
-      \"action\": \"txt\",
-      \"subtree\": {}
+    /** @test */
+    static public function URLCakeTest1()
+    {
+        Router::$tree = null;
+
+        self::assertEquals('/posts/view/bar',
+            UrlHelper::build([
+                "controller" => "Posts",
+                "action" => "view",
+                "bar",
+            ]));
+        // TODO support this
+        //self::assertEquals('/img/icon.png',
+        //    UrlHelper::image('icon.png'));
+        //self::assertEquals('/js/app.js',
+        //    UrlHelper::script('app.js'));
+        //self::assertEquals('/css/app.css',
+        //    UrlHelper::css('app.css'));
     }
-  }
-}
-";
 
     /**
      * Tests for {@link UrlHelper::build()}
@@ -45,37 +33,31 @@ final class UrlHelperTest extends TestCase
      */
     public function buildTest1()
     {
+        Router::$tree = null;
+
         self::assertEquals(
-            '/foo/bar',
+            '/main/home/foo/bar',
             UrlHelper::build([
                 'controller' => 'Main',
                 'action' => 'home',
-                'args' => 'foo/bar'
-            ],
-                false,
-                json_decode(self::$json))
-        );
-
+                'foo/bar'
+            ], false
+            ));
         self::assertEquals(
-            '/gallery/foo/bar',
+            '/gallery/view/foo/bar',
             UrlHelper::build([
                 'controller' => 'Gallery',
                 'action' => 'view',
-                'args' => 'foo/bar'
-            ],
-                false,
-                json_decode(self::$json))
-        );
-
+                'foo/bar'
+            ], false
+            ));
         self::assertEquals(
-            '/txt/',
+            '/file/txt',
             UrlHelper::build([
                 'controller' => 'File',
                 'action' => 'txt',
-                'args' => ''
-            ],
-                false,
-                json_decode(self::$json))
+                ''
+            ], false)
         );
     }
 
@@ -93,10 +75,10 @@ final class UrlHelperTest extends TestCase
             UrlHelper::build([
                 'controller' => 'Not',
                 'action' => 'existing',
-                'args' => 'bla'
-            ],
-                false,
-                json_decode(self::$json))
+                'bla'
+            ], false)
         );
     }
+
+
 }

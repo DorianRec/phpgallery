@@ -10,5 +10,5 @@ include __DIR__ . '/../config/app.php';
 include __DIR__ . '/../config/routes.php';
 
 App::load(
-    Router::urlToCombo(
+    Router::pathToCombo(
         UrlHelper::get_url()));
