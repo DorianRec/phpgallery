@@ -64,6 +64,41 @@ final class RouterTest extends TestCase
      *
      * @test
      */
+    public function connectBasicTest1()
+    {
+        $expected = [
+            'controller' => '1',
+            'action' => '2',
+            'a' => [
+                'controller' => '9',
+                'action' => '10',
+                'b' => [
+                    'controller' => '5',
+                    'action' => '6',
+                ]
+            ]
+        ];
+
+        $router = new Router();
+        $router->connect('/', '1::2');
+        $router->connect('/a', '3::4');
+        $router->connect('/a/b', '5::6');
+        $router->connect('/a/*', '7::8');
+        $router->connect('/a/**', '9::10');
+
+        $actual = Json::stdClassToArray($router::$tree);
+
+        self::assertTrue(
+            array_diff($expected, $actual) == [], '$expected != $actual' . "\n" .
+            '$expected: ' . print_r($expected) . "\n" .
+            '$actual: ' . print_r($actual));
+    }
+
+    /**
+     * Tests for {@link Router::connect()}
+     *
+     * @test
+     */
     public function connectLocationsTest1()
     {
         $json = "{
@@ -106,8 +141,8 @@ final class RouterTest extends TestCase
       \"subtree\": {}
     }
   }
-}
-";
+}";
+        Router::$tree = null;
         Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
         Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
         Router::connect('/page', ['controller' => 'Main', 'action' => 'view']);
@@ -128,6 +163,7 @@ final class RouterTest extends TestCase
      */
     public function findLastSetupTest1()
     {
+        Router::$tree = null;
         Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
         Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
         Router::connect('/page', ['controller' => 'Main', 'action' => 'view']);

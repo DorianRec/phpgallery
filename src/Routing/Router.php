@@ -9,6 +9,9 @@ use Utility\Json;
 class Router
 {
 
+    /**
+     * @var stdClass $tree
+     */
     public static $tree;
 
     /**
