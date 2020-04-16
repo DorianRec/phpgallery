@@ -9,10 +9,11 @@ class FileController extends Controller
     {
         $source = __DIR__ . '/../../webroot/css/' . implode('/', $pathFragments);
         if (file_exists($source) && is_file($source)) {
+            echo 'hey';
             require_once $source;
             return;
         }
-        ErrorController::error('CSS file not found!');
+        ErrorController::error("CSS file \"$source\" not found!");
         return;
     }
 

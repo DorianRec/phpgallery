@@ -14,18 +14,6 @@ use Routing\Router;
 class UrlHelper
 {
     /**
-     * Returns the current URL.
-     * Example:
-     * http://example.de/path/to/location
-     *
-     * @return string the current URL
-     */
-    static public function get_url(): string
-    {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    }
-
-    /**
      * Returns the current protocol and domain.
      * Example: http://example.de
      *

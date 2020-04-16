@@ -8,11 +8,22 @@ use Utility\Json;
 
 class Router
 {
-
     /**
      * @var stdClass $tree
      */
     public static $tree;
+
+    public static function loadCombo(string $url): array
+    {
+        $urlArray = parse_url($url);
+        if ($request = Router::pathToCombo($urlArray['path'])) {
+            return $request;
+        } else {
+            $segments = explode('/', $urlArray['path'], 3);
+            print_r($segments);
+            return ['controller' => $urlArray[1], 'action' => $urlArray[2]];
+        }
+    }
 
     /**
      * TODO write tests
@@ -55,10 +66,6 @@ class Router
                 if (!property_exists($subtree->subtree, $seg))
                     $subtree->subtree->{$seg} = new stdClass();
                 $subtree = $subtree->subtree->{$seg};
-            } else {
-                echo '#################SEGMENTS#################';
-                print_r($segments);
-                echo 'ENDE';
             }
         }
 
@@ -117,7 +124,7 @@ class Router
     static public function pathToCombo(string $path)
     {
         if (!preg_match("/^(\/|(\/[^\/]+)+)$/", $path))
-            throw new InvalidArgumentException('$path is invalid!');
+            throw new InvalidArgumentException("\$path {$path} is invalid!");
 
         $parts = explode('/', Router::fixPath($path));
         $parts = array_slice($parts, 1, count($parts) - 1);
@@ -140,11 +147,6 @@ class Router
                 if (strtolower($key) == strtolower($parts[$i])) {
                     $found = true;
                     $tree = $page;
-                    if ($tree == null) {
-                        echo "sfjosigoghoig";
-                        print_r($tree);
-                        echo 'asdkjaskd';
-                    }
                     if (self::terminationCondition($tree)) {
                         $output = $tree;
                         $output->args = array_slice($parts, $i + 1, count($parts) - 3);
@@ -165,8 +167,7 @@ class Router
 
     static public function terminationCondition(stdClass $node): bool
     {
-        return $node->controller != '' &&
-            $node->action != '';
+        return $node->controller != '' && $node->action != '';
     }
 
     /**
@@ -188,12 +189,10 @@ class Router
         // test initial
         if ($tree->controller == $controller && $tree->action == $action) return '/';
 
-
         // we ignore the first and the last string, since they are empty
         foreach ($tree->subtree as $key => $value) {
-            if ($value->controller == $controller && $value->action == $action) {
+            if ($value->controller == $controller && $value->action == $action)
                 return "/$key";
-            }
             if (count((array)$key->subtree) > 0) {
                 $call = self::comboToPath($controller, $action, $value->subtree);
                 if ($call) return "/$call";
