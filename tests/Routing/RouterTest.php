@@ -177,31 +177,36 @@ final class RouterTest extends TestCase
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::urlToCombo()}.
      * Here we test, whether we get the home page.
      *
      * @test
      */
-    public function parseHomeTest1(): void
+    public function urlToComboHttpTest1(): void
     {
-        $this->assertEquals(
-            0,
-            Router::treeSearch('http://example.de/', json_decode(self::$json))->content
-        );
+        $expected = ['controller' => "0", 'action' => "1"];
+
+        Router::$tree = null;
+        Router::connect('/', $expected);
+        self::compareCombos($expected,
+            Router::urlToCombo('http://example.de/'));
     }
 
     /**
-     * Test for {@link Router::treeSearch()}.
+     * Test for {@link Router::urlToCombo()}.
      * Here we test, whether https is accepted.
      *
      * @test
      */
-    public function parseHttpsTest1(): void
+    public function urlToComboHttpsTest1(): void
     {
-        $this->assertEquals(
-            0,
-            Router::treeSearch('https://example.de/', json_decode(self::$json))->content
-        );
+        $expected = ['controller' => "0", 'action' => "1"];
+
+        Router::$tree = null;
+        Router::connect('/', $expected);
+        self::compareCombos($expected,
+            Router::urlToCombo('https://example.de/'));
+
     }
 
     /**
@@ -212,10 +217,17 @@ final class RouterTest extends TestCase
      */
     public function parseErrorTest1(): void
     {
-        $this->assertEquals(
-            false,
-            Router::treeSearch('http://example.de/f7fiyfifuiy/', json_decode(self::$json))->content
-        );
+        Router::$tree = null;
+        self::assertFalse(Router::urlToCombo('http://example.de/f7fiyfifuiy/'));
+    }
+
+
+    /** @test */
+    public function parseErrorTest2(): void
+    {
+        $expected = ['controller' => 'NotExisting', 'action' => 'alsoNotExisting'];
+        Router::$tree = null;
+        self::compareCombos($expected, Router::urlToCombo('http://example.de/notexisting/alsonotexisting/'));
     }
 
     /**
@@ -226,18 +238,18 @@ final class RouterTest extends TestCase
      */
     public function parseSimpleTest1(): void
     {
-        $this->assertEquals(
-            1,
-            Router::treeSearch('http://example.de/home/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            2,
-            Router::treeSearch('http://example.de/page/', json_decode(self::$json))->content
-        );
-        $this->assertEquals(
-            3,
-            Router::treeSearch('http://example.de/overpage123/', json_decode(self::$json))->content
-        );
+        Router::$tree = null;
+        $home = ['controller' => 'Main', 'action' => 'home'];
+        $page = ['controller' => 'Pages', 'action' => 'view'];
+        $overpage = ['controller' => 'Over', 'action' => 'upper'];
+
+        Router::connect('/home', $home);
+        Router::connect('/page', $page);
+        Router::connect('/overpage123', $overpage);
+
+        self::compareCombos(Router::urlToCombo('http://example.de/home/'), $home);
+        self::compareCombos(Router::urlToCombo('http://example.de/page/'), $page);
+        self::compareCombos(Router::urlToCombo('http://example.de/overpage123/'), $overpage);
     }
 
     /**
