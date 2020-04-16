@@ -2,6 +2,7 @@
 
 namespace Routing;
 
+use Error\Debugger;
 use InvalidArgumentException;
 use stdClass;
 use Utility\Json;
@@ -171,14 +172,20 @@ class Router
                 }
             }
             if (!$found) {
-                if ($output != null)
+                if ($output != null) {
                     return Json::stdClassToArray($output);
-                return $error;
+                } else {
+                    Debugger::dump("Error: {$url} could not be mapped to a Controller::action.");
+                    return $error;
+                }
             }
         }
-        if ($output != null)
+        if ($output != null) {
             return Json::stdClassToArray($output);
-        return $error;
+        } else {
+            Debugger::dump("Error: {$url} could not be mapped to a Controller::action.");
+            return $error;
+        }
     }
 
     static public function terminationCondition(stdClass $node): bool
@@ -213,6 +220,7 @@ class Router
                 if ($call) return "/$call/";
             }
         }
+        Debugger::dump("Warning: {$controller}::{$action} combo not found!");
         return '/' . strtolower($controller) . "/$action/";
     }
 }

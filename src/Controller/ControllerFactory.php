@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Error\Debugger;
 use InvalidArgumentException;
 
 class ControllerFactory
@@ -20,9 +21,11 @@ class ControllerFactory
                 return new FileController();
             case 'Gallery' :
                 return new GalleryController();
-            case 'Main' :
+            case 'Pages' :
                 return new PagesController();
         }
+        Debugger::dump("Error: In Controller\ControllerFactory::build<br>
+No Controller {$controller} could be resolved!");
         return false;
     }
 }

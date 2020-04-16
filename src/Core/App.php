@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use Controller\Controller;
 use Controller\ControllerFactory;
+use Controller\ErrorController;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
@@ -57,7 +57,7 @@ class App
             $action = $object['action'];
             $controller->$action($object['args']);
         } else {
-            Controller::error('Page not found!');
+            ErrorController::error('Page not found!');
         }
     }
 }

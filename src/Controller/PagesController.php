@@ -6,7 +6,13 @@ class PagesController extends Controller
 {
     static public function home(array $pathFraments)
     {
-        return;
+        if ($pathFragments == []) {
+            $CONTROLLER['controller'] = __CLASS__;
+            $CONTROLLER['action'] = __FUNCTION__;
+        } else {
+            ErrorController::error('404 Page not found!');
+        }
+        require_once __DIR__ . '/../../templates/page.php';
     }
 
     static public function current(array $pathFraments)
@@ -21,12 +27,6 @@ class PagesController extends Controller
 
     static public function view(array $pathFragments)
     {
-        if ($pathFragments == []) {
-            $CONTROLLER['controller'] = 'Main';
-            $CONTROLLER['action'] = 'view';
-        } else {
-            ErrorController::error('404 Page not found!');
-        }
-        require_once __DIR__ . '/../../templates/page.php';
+        return;
     }
 }
