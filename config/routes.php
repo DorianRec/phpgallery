@@ -3,7 +3,7 @@
 use Routing\Router;
 
 Router::connect('/', ['controller' => 'Pages', 'action' => 'home']);
-Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
+Router::connect('/gallery/*', ['controller' => 'Gallery', 'action' => 'view']);
 Router::connect('/page', ['controller' => 'Pages', 'action' => 'view']);
 Router::connect('/css', ['controller' => 'File', 'action' => 'css']);
 Router::connect('/html', ['controller' => 'File', 'action' => 'html']);

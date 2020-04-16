@@ -9,7 +9,7 @@ final class UrlHelperTest extends TestCase
     /** @test */
     static public function URLCakeTest1()
     {
-        Router::$tree = null;
+        Router::$mapping = null;
 
         self::assertEquals('/posts/view/bar',
             UrlHelper::build([
@@ -33,7 +33,7 @@ final class UrlHelperTest extends TestCase
      */
     public function buildTest1()
     {
-        Router::$tree = null;
+        Router::$mapping = null;
 
         self::assertEquals(
             '/main/home/foo/bar',

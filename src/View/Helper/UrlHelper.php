@@ -51,7 +51,7 @@ class UrlHelper
             if ($struct[$i] != '') $args .= "/{$struct[$i]}";
         }
 
-        if (!$path = Router::comboToPath($struct['controller'], $struct['action']))
+        if (!$path = Router::desolve($struct))
             $path = "/{$struct['controller']}/{$struct['action']}";
 
         return strtolower($protocol_and_domain . $path . $args);
