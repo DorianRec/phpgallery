@@ -2,11 +2,67 @@
 
 namespace Routing;
 
+use InvalidArgumentException;
 use stdClass;
 use Utility\Json;
 
 class Router
 {
+
+    public static $tree;
+
+    /**
+     * TODO write tests
+     * Maps the given path to a specific Controller, action combination.
+     *
+     * @param string $path
+     * '/', '/a/b', '/a/b/*', '/a/b/**'
+     * @param $combo
+     * Form:
+     * 'Controller::action'
+     * ['controller' => string, 'action' => string]
+     */
+    static public function connect(string $path, $combo)
+    {
+        if (!preg_match("/^(\/|(\/[^\/]*)+)$/", $path))
+            throw new InvalidArgumentException('$path does not math ');
+        if (gettype($combo) == 'string') {
+            [$controller, $action] = explode('::', $combo);
+        } else if (gettype($combo) == 'array') {
+            $controller = $combo['controller'];
+            $action = $combo['action'];
+        } else
+            throw new InvalidArgumentException('type of $combo not supported.');
+
+        $segments = explode('/', $path);
+        $extra = '';
+        if ($extra = $segments[count($segments) - 1] == '*' || $extra = $segments[count($segments) - 1] == '**') {
+            $segments = array_slice($segments, 1, count($segments) - 2);
+        } else
+            $segments = array_slice($segments, 1, count($segments) - 1);
+
+        if (self::$tree == null)
+            self::$tree = new stdClass();
+        $subtree = self::$tree;
+        foreach ($segments as $seg) {
+            if ($seg != '') {
+                if (!property_exists($subtree, 'subtree'))
+                    $subtree->subtree = new stdClass();
+                if (!property_exists($subtree->subtree, $seg))
+                    $subtree->subtree->{$seg} = new stdClass();
+                $subtree = $subtree->subtree->{$seg};
+            }
+        }
+        if (!property_exists($subtree, 'controller'))
+            $subtree->controller = new stdClass();
+        $subtree->controller = $controller;
+        if (!property_exists($subtree, 'action'))
+            $subtree->action = new stdClass();
+        if (!property_exists($subtree, 'subtree'))
+            $subtree->subtree = new stdClass();
+        $subtree->action = $action;
+    }
+
     /**
      * @param string $url The URL we want to parse
      * @param stdClass|null $tree A tree build of stdClasses. May be null.
@@ -116,12 +172,12 @@ class Router
             }
             if (!$found) {
                 if ($output != null)
-                    return Json::stdClass_to_array($output);
+                    return Json::stdClassToArray($output);
                 return $error;
             }
         }
         if ($output != null)
-            return Json::stdClass_to_array($output);
+            return Json::stdClassToArray($output);
         return $error;
     }
 
@@ -137,23 +193,18 @@ class Router
      *
      * @param string $controller {@link Controller}
      * @param string $action the action of {@link Controller}
-     * @param stdClass|null $tree A tree, containing these (controller,action/URL) combination. (locations.json by default)
-     * @return string The path, if a path exists, which leads to the given $controller/$action combination.
+     * @return string The path if a path exists, which leads to the given $controller/$action combination.
      * /$controller/$action/, otherwise.
      */
-    static public function searchPath(string $controller, string $action, stdClass $tree = null): string
+    static public function searchPath(string $controller, string $action): string
     {
-        if ($tree == null) {
-            $tree = json_decode(file_get_contents(__DIR__ . '/../Database/tables/locations.json'));
-        }
-
         // test initial
-        if ($tree->controller == $controller && $tree->action == $action) {
+        if (self::$tree->controller == $controller && self::$tree->action == $action) {
             return '/';
         }
 
         // we ignore the first and the last string, since they are empty
-        foreach ($tree->subtree as $key => $value) {
+        foreach (self::$tree->subtree as $key => $value) {
             if ($value->controller == $controller && $value->action == $action) {
                 return "/$key/";
             }

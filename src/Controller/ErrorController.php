@@ -10,7 +10,7 @@ class ErrorController extends Controller
      *
      * @param string $message the error message
      */
-    static public function error(array $message): void
+    static public function error(string $message): void
     {
         echo $message;
         exit();

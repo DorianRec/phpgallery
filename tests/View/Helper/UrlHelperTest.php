@@ -45,7 +45,7 @@ final class UrlHelperTest extends TestCase
             '/foo/bar',
             UrlHelper::build([
                 'controller' => 'Main',
-                'action' => 'view',
+                'action' => 'home',
                 'args' => 'foo/bar'
             ],
                 false,

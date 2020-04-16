@@ -59,6 +59,66 @@ final class RouterTest extends TestCase
             ))
     ];
 
+    /** @test */
+    public function connectLocationsTest1()
+    {
+        $json = "{
+  \"controller\": \"Main\",
+  \"action\": \"home\",
+  \"subtree\": {
+    \"gallery\": {
+      \"controller\": \"Gallery\",
+      \"action\": \"view\",
+      \"subtree\": {}
+    },
+    \"page\": {
+      \"controller\": \"Main\",
+      \"action\": \"view\",
+      \"subtree\": {}
+    },
+    \"css\": {
+      \"controller\": \"File\",
+      \"action\": \"css\",
+      \"subtree\": {}
+    },
+    \"html\": {
+      \"controller\": \"File\",
+      \"action\": \"html\",
+      \"subtree\": {}
+    },
+    \"img\": {
+      \"controller\": \"File\",
+      \"action\": \"img\",
+      \"subtree\": {}
+    },
+    \"js\": {
+      \"controller\": \"File\",
+      \"action\": \"js\",
+      \"subtree\": {}
+    },
+    \"txt\": {
+      \"controller\": \"File\",
+      \"action\": \"txt\",
+      \"subtree\": {}
+    }
+  }
+}
+";
+
+        Router::$tree = null;
+        Router::connect('/', ['controller' => 'Main', 'action' => 'home']);
+        Router::connect('/gallery', ['controller' => 'Gallery', 'action' => 'view']);
+        Router::connect('/page', ['controller' => 'Main', 'action' => 'view']);
+        Router::connect('/css', ['controller' => 'File', 'action' => 'css']);
+        Router::connect('/html', ['controller' => 'File', 'action' => 'html']);
+        Router::connect('/img', ['controller' => 'File', 'action' => 'img']);
+        Router::connect('/js', ['controller' => 'File', 'action' => 'js']);
+        Router::connect('/txt', ['controller' => 'File', 'action' => 'txt']);
+        self::assertTrue(Router::$tree == json_decode($json), 'Router::$tree != json_decode($json)' . "\n" .
+            'Router::$tree: ' . print_r(Router::$tree) . "\n" .
+            'json_decode($json): ' . print_r(json_decode($json)));
+    }
+
     /**
      * Test for {@link Router::treeSearch()}.
      * Here we test, whether we get the home page.
@@ -263,15 +323,15 @@ final class RouterTest extends TestCase
     {
         $this->assertEquals(
             42,
-            Router::treeSearch('example.de', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('example.de', Json::arrayToStdClass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            Router::treeSearch('localhost', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('localhost', Json::arrayToStdClass(self::$special2))->content
         );
         $this->assertEquals(
             666,
-            Router::treeSearch('127.0.0.1', Json::array_to_stdclass(self::$special2))->content
+            Router::treeSearch('127.0.0.1', Json::arrayToStdClass(self::$special2))->content
         );
     }
 
@@ -406,7 +466,7 @@ final class RouterTest extends TestCase
     {
         $this->assertEquals(
             '/',
-            Router::searchPath('Main', 'view')
+            Router::searchPath('Main', 'home')
         );
         $this->assertEquals(
             '/gallery/',

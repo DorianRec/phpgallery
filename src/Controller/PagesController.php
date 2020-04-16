@@ -2,8 +2,23 @@
 
 namespace Controller;
 
-class MainController extends Controller
+class PagesController extends Controller
 {
+    static public function home(array $pathFraments)
+    {
+        return;
+    }
+
+    static public function current(array $pathFraments)
+    {
+        return;
+    }
+
+    static public function aboutUs(array $pathFraments)
+    {
+        return;
+    }
+
     static public function view(array $pathFragments)
     {
         if ($pathFragments == []) {

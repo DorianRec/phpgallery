@@ -21,7 +21,7 @@ class ControllerFactory
             case 'Gallery' :
                 return new GalleryController();
             case 'Main' :
-                return new MainController();
+                return new PagesController();
         }
         return false;
     }

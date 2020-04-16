@@ -18,12 +18,12 @@ class Json
      * @param array $array which will convert to a stdClass
      * @return stdClass the converted $array
      */
-    static public function array_to_stdclass(array $array): stdClass
+    static public function arrayToStdClass(array $array): stdClass
     {
         $stdClass = new stdClass();
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $value = self::array_to_stdclass($value);
+                $value = self::arrayToStdClass($value);
             }
             $stdClass->$key = $value;
         }
@@ -36,12 +36,12 @@ class Json
      * @param stdClass $stdClass which will convert to an array
      * @return stdClass the converted $array
      */
-    static public function stdClass_to_array(stdClass $stdClass): array
+    static public function stdClassToArray(stdClass $stdClass): array
     {
         $array = [];
         foreach ($stdClass as $key => $value) {
             if (is_object($value)) {
-                $value = self::stdClass_to_array($value);
+                $value = self::stdClassToArray($value);
             }
             $array[$key] = $value;
         }

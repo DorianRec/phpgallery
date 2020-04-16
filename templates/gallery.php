@@ -5,14 +5,16 @@
     <? use View\Helper\HtmlHelper;
     use View\ImageReader;
 
-    echo HtmlHelper::css(['styles', 'colors', 'gallery', 'modal']) ?>
+    echo HtmlHelper::css(['styles', 'colors_custom', 'gallery', 'modal']) ?>
 </head>
 <body>
 <div class="page-container">
-    <div class="header"><?php include 'header.php'; ?></div>
+    <div class="header"><h1>PHPGallery</h1>
+        <?php include 'header.php'; ?></div>
     <div class="content-wrap">
         <?php echo ImageReader::read_from_json_file($CONTROLLER['tags']) ?>
     </div>
+
     <div class="footer"><?php include 'footer.php'; ?></div>
 </div>
 

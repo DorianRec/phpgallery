@@ -27,23 +27,31 @@ final class JsonTest extends TestCase
         }
     }";
 
-    /** @test */
-    public function array_to_stdclass_test1(): void
+    /**
+     * Tests for {@link Json::arrayToStdClass()}
+     *
+     * @test
+     */
+    public function arrayToStdClassTest1(): void
     {
-        $array_to_stdclass = Json::array_to_stdclass(self::$array);
+        $arrayToStdClass = Json::arrayToStdClass(self::$array);
         $stdClass = json_decode(self::$json);
-        self::assertTrue($stdClass == $array_to_stdclass, '$stdClass != $array_to_stdclass' . "\n" .
-            '$array_to_stdclass: ' . print_r($array_to_stdclass) . "\n" .
+        self::assertTrue($stdClass == $arrayToStdClass, '$stdClass != $arrayToStdClass' . "\n" .
+            '$arrayToStdClass: ' . print_r($arrayToStdClass) . "\n" .
             '$stdClass: ' . print_r($stdClass));
     }
 
-    /** @test */
-    public function stdclass_to_array_test1(): void
+    /**
+     * Tests for {@link Json::stdClassToArray()}
+     *
+     * @test
+     */
+    public function stdClassToArrayTest1(): void
     {
-        $stdClass_to_array = Json::stdClass_to_array(json_decode(self::$json));
+        $stdClassToArray = Json::stdClassToArray(json_decode(self::$json));
         self::assertTrue(
-            array_diff(self::$array, $stdClass_to_array) == [], '$array != $stdClass_to_array' . "\n" .
+            array_diff(self::$array, $stdClassToArray) == [], '$array != $stdClassToArray' . "\n" .
             '$array: ' . print_r(self::$array) . "\n" .
-            '$stdClass_to_array: ' . print_r($stdClass_to_array));
+            '$stdClassToArray: ' . print_r($stdClassToArray));
     }
 }
