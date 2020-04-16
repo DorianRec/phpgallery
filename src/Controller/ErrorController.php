@@ -2,6 +2,9 @@
 
 namespace Controller;
 
+use Core\Configure;
+use Error\Debugger;
+
 class ErrorController extends Controller
 {
 
@@ -12,6 +15,8 @@ class ErrorController extends Controller
      */
     static public function error(string $message): void
     {
+        if (Configure::read('debug'))
+            echo Debugger::getDumps();
         echo $message;
         exit();
     }
