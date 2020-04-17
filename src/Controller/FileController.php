@@ -5,11 +5,10 @@ namespace Controller;
 class FileController extends Controller
 {
 
-    static public function css(array $pathFragments): void
+    static public function css(string $pathFragments): void
     {
-        $source = __DIR__ . '/../../webroot/css/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/css/' . $pathFragments;
         if (file_exists($source) && is_file($source)) {
-            echo 'hey';
             require_once $source;
             return;
         }
@@ -17,9 +16,9 @@ class FileController extends Controller
         return;
     }
 
-    static public function html(array $pathFragments): void
+    static public function html(string $pathFragments): void
     {
-        $source = __DIR__ . '/../../webroot/html/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/html/' . $pathFragments;
         if (file_exists($source) && is_file($source)) {
             require_once $source;
             return;
@@ -28,9 +27,9 @@ class FileController extends Controller
         return;
     }
 
-    static public function img(array $pathFragments)
+    static public function img(string $pathFragments)
     {
-        $source = __DIR__ . '/../../webroot/img/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/img/' . $pathFragments;
         if (file_exists($source) && is_file($source)) {
             $info = getimagesize($source);
             header('Content-Type:' . $info['mime']);
@@ -57,9 +56,9 @@ class FileController extends Controller
         ErrorController::error('Image file not found!');
     }
 
-    static public function js(array $pathFragments): void
+    static public function js(string $pathFragments): void
     {
-        $source = __DIR__ . '/../../webroot/js/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/js/' . $pathFragments;
         if (file_exists($source) && is_file($source)) {
             require_once $source;
             return;
@@ -67,9 +66,9 @@ class FileController extends Controller
         ErrorController::error('JavaScript file not found!');
     }
 
-    static public function txt(array $pathFragments): void
+    static public function txt(string $pathFragments): void
     {
-        $source = __DIR__ . '/../../webroot/txt/' . implode('/', $pathFragments);
+        $source = __DIR__ . '/../../webroot/txt/' . $pathFragments;
         if (file_exists($source) && is_file($source)) {
             require_once $source;
             return;

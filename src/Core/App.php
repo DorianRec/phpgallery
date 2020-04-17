@@ -53,6 +53,7 @@ class App
      */
     static public function load(array $object): void
     {
+        if ($object['args'] == null) $object['args'] = '';
         if ($controller = ControllerFactory::build($object['controller'])) {
             $action = $object['action'];
             $controller->$action($object['args']);

@@ -16,16 +16,15 @@ class ControllerFactory
      */
     static public function build(string $controller)
     {
-        switch ($controller) {
-            case 'File' :
+        switch (strtolower($controller)) {
+            case strtolower('File'):
                 return new FileController();
-            case 'Gallery' :
+            case strtolower('Gallery'):
                 return new GalleryController();
-            case 'Pages' :
+            case strtolower('Pages') :
                 return new PagesController();
         }
-        Debugger::dump("Error: In Controller\ControllerFactory::build<br>
-No Controller {$controller} could be resolved!");
+        Debugger::dump("<b>Error:</b> No Controller {$controller} could be resolved!", __METHOD__, __LINE__);
         return false;
     }
 }

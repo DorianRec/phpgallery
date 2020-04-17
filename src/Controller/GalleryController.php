@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use Error\Debugger;
+
 class GalleryController extends Controller
 {
     static public function view(array $pathFragments)
@@ -14,7 +16,8 @@ class GalleryController extends Controller
         } else if ($pathFragments[0] == 'tags' && count($pathFragments) <= 2) {
             $CONTROLLER['tags'] = [$pathFragments[1]];
         } else {
-            Controller::error('404 Page not found!');
+            Debugger::dump("Wrong number of arguments!", __METHOD__, __LINE__);
+            ErrorController::error('404 Page not found!');
         }
 
         require_once __DIR__ . '/../../templates/gallery.php';

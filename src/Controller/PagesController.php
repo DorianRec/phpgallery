@@ -4,7 +4,7 @@ namespace Controller;
 
 class PagesController extends Controller
 {
-    static public function home(array $pathFraments)
+    static public function home(string $pathFraments)
     {
         if ($pathFragments == []) {
             $CONTROLLER['controller'] = __CLASS__;
@@ -15,17 +15,17 @@ class PagesController extends Controller
         require_once __DIR__ . '/../../templates/page.php';
     }
 
-    static public function current(array $pathFraments)
+    static public function current(string $pathFraments)
     {
         return;
     }
 
-    static public function aboutUs(array $pathFraments)
+    static public function aboutUs(string $pathFraments)
     {
         return;
     }
 
-    static public function view(array $pathFragments)
+    static public function view(string $pathFragments)
     {
         return;
     }

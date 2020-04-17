@@ -2,6 +2,8 @@
 
 namespace Routing;
 
+use Error\Debugger;
+
 class Router
 {
     /**
@@ -29,43 +31,47 @@ class Router
         foreach (self::$mapping as $key => $value) {
             if (preg_match("/^(\/|(\/[^\/]+)+)$/", $key)) {
                 if ($key == $path) {
+                    Debugger::dump($value, __METHOD__, __LINE__);
                     return $value;
                 }
             }
             if (preg_match("/^\/([^\/]+\/)*\*$/", $key)) { // greedy star
-                echo substr($key, 0, strlen($key) - 1) . " == " . substr($path, 0, strlen($key) - 1);
                 if (substr($key, 0, strlen($key) - 1) == substr($path, 0, strlen($key) - 1)) {
                     $value['args'] = explode('/', substr($path, strlen($key) - 1));
+                    Debugger::dump($value, __METHOD__, __LINE__);
                     return $value;
                 }
             }
             if (preg_match("/^\/([^\/]+\/)*\*\*$/", $key)) { // trailing star
-                echo substr($key, 0, strlen($key) - 2) . " == " . substr($path, 0, strlen($key) - 2);
                 if (substr($key, 0, strlen($key) - 2) == substr($path, 0, strlen($key) - 2)) {
                     $value['args'] = substr($path, strlen($key) - 2);
+                    Debugger::dump($value, __METHOD__, __LINE__);
                     return $value;
                 }
             }
         }
 
         $output = explode('/', $path, 4);
-        return [
+        $default = [
             'controller' => $output[1],
             'action' => $output[2],
             'args' => '/' . $output[3] . $segments['query'] . $segments['fragment']
         ];
+        Debugger::dump($default, __METHOD__, __LINE__);
+        return $default;
     }
 
     static public function desolve(array $combo): string
     {
-        if (self::$mapping == null)
-            return "/{$combo['controller']}/{$combo['action']}";
-        foreach (self::$mapping as $key => $value) {
-            if ($combo['controller'] == $value['controller'] &&
-                $combo['action'] == $value['action']) {
-                return str_replace('*', '', $key);
+        if (self::$mapping == null) {
+            foreach (self::$mapping as $key => $value) {
+                if ($combo['controller'] == $value['controller'] &&
+                    $combo['action'] == $value['action']) {
+                    return str_replace('*', '', $key);
+                }
             }
         }
+        return "/{$combo['controller']}/{$combo['action']}";
     }
 
     /**
