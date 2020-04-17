@@ -63,7 +63,7 @@ class Router
 
     static public function desolve(array $combo): string
     {
-        if (self::$mapping == null) {
+        if (self::$mapping != null) {
             foreach (self::$mapping as $key => $value) {
                 if ($combo['controller'] == $value['controller'] &&
                     $combo['action'] == $value['action']) {
